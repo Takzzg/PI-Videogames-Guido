@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
         "genre",
         {
             id: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true,
                 allowNull: false
@@ -13,6 +13,12 @@ module.exports = (sequelize) => {
             name: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            image: {
+                type: DataTypes.STRING
+            },
+            count: {
+                type: DataTypes.INTEGER
             }
         },
         { timestamps: false }
