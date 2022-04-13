@@ -26,12 +26,11 @@ const { API_BASE_URL, RAWG_KEY } = process.env
 
 const apiUrl = `${API_BASE_URL}/genres?key=${RAWG_KEY}`
 
-conn.sync({ force: true }).then(async () => {
-    // save genres to database
-    let genres
+const saveGenresToDB = async () => {
+    // fetch genres
+    let genres = await (await axios.get(apiUrl)).data.results
 
-    await axios.get(apiUrl).then((res) => (genres = res.data.results))
-
+    // map relevant fields
     genres = genres.map((g) => ({
         id: g.id,
         name: g.name,
@@ -39,13 +38,34 @@ conn.sync({ force: true }).then(async () => {
         count: g.games_count
     }))
 
+    // save to DB
     await Genre.bulkCreate(genres)
+}
 
-    //hardcoded game for testing
+const hardcodedGame = async () => {
+    // search a few genres
+    let action = await Genre.findOne({ where: { name: "Action" } })
+    let multiplayer = await Genre.findOne({
+        where: { name: "Massively Multiplayer" }
+    })
+    let simulation = await Genre.findOne({ where: { name: "Simulation" } })
+
+    // create videogame
     let minecraft = await Videogame.create({
         name: "Minecraft",
-        desc: "It's just Minecraft"
+        desc: "It's just Minecraft, but on postgres"
     })
+
+    // add relationship
+    await minecraft.setGenres([action, multiplayer, simulation])
+}
+
+conn.sync({ force: true }).then(async () => {
+    // save genres to database
+    await saveGenresToDB()
+
+    //hardcoded game for testing
+    await hardcodedGame()
 
     server.listen(3001, () => {
         console.log("Server listening on localhost:3001")
