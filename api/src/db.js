@@ -9,7 +9,8 @@ const sequelize = new Sequelize(
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`,
     {
         logging: false, // set to console.log to see the raw SQL queries
-        native: false // lets Sequelize know we can use pg-native for ~30% more speed
+        native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+        query: { raw: true }
     }
 )
 
@@ -44,7 +45,6 @@ sequelize.models = Object.fromEntries(capsEntries)
 const { Videogame, Genre } = sequelize.models
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
 const videogame_genre = sequelize.define(
     "videogame_genre",
     {},
