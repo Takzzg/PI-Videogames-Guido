@@ -2,17 +2,20 @@ import React from "react"
 import styled from "styled-components"
 
 import themes from "../../theme.json"
-import { Navlink } from "./Navlink"
+import { Navlink } from "./NavLink"
 
 const Styled = styled.div`
     background-color: ${themes.dark.palette.dark};
-    /* color: ${themes.dark.text.light}; */
-    color: red;
 
-    text-decoration: none;
-
-    padding: 1rem;
+    /* padding: 1rem; */
     margin: 1rem;
+
+    border-radius: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 `
 
 export const Navbar = () => {

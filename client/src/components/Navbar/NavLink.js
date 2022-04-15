@@ -1,5 +1,10 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
+import styled from "styled-components"
+
+const Styled = styled.div`
+    margin: 1rem;
+`
 
 export const Navlink = ({ title, url }) => {
     return (
@@ -8,10 +13,10 @@ export const Navlink = ({ title, url }) => {
             style={({ isActive }) => ({
                 textDecoration: "none",
                 color: isActive ? "black" : "white",
-                backgroundColor: !isActive ? "black" : "white"
+                backgroundColor: isActive ? "white" : ""
             })}
         >
-            {title}
+            <Styled>{title}</Styled>
         </NavLink>
     )
 }
