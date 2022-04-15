@@ -53,7 +53,8 @@ const hardcodedGame = async () => {
     // create videogame
     let minecraft = await Videogame.create({
         name: "Minecraft",
-        desc: "It's just Minecraft, but on postgres"
+        desc: "It's just Minecraft, but on postgres",
+        rating: 5
     })
 
     // add relationship
