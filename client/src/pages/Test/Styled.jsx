@@ -1,14 +1,5 @@
 import styled from "styled-components"
 
-const Sblock = styled.div`
-    width: 100px;
-    height: 100px;
-    background-color: hsl(
-        ${(props) =>
-            `${props.color[0]}, ${props.color[1]}%, ${props.color[2]}%`}
-    );
-`
-
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
@@ -36,4 +27,4 @@ const Styled = styled.div`
     }
 `
 
-export { Sblock, Styled }
+export { Styled }

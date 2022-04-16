@@ -2,13 +2,11 @@ import React from "react"
 import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 
-import themes from "../../theme.json"
 import { Navlink } from "./NavLink"
 
 const Styled = styled.div`
     .content {
         margin: 1rem;
-        background-color: ${themes.dark.palette.dark};
         border-radius: 0.5rem;
         overflow: hidden;
 
