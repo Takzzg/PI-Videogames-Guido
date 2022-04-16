@@ -7,6 +7,8 @@ import { Pagination } from "./Pagination"
 import { useSelector } from "react-redux"
 
 const Styled = styled.div`
+    padding: 1rem;
+
     .cardsCont {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -14,7 +16,7 @@ const Styled = styled.div`
         gap: 1rem;
 
         & > * {
-            height: 400px;
+            min-height: 400px;
         }
     }
 `

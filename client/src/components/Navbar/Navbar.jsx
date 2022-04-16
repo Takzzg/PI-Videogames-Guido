@@ -5,15 +5,24 @@ import styled from "styled-components"
 import { Navlink } from "./NavLink"
 
 const Styled = styled.div`
+    position: ${(props) => (props.float ? "absolute" : "sticky")};
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    /* overflow: hidden; */
+
     .content {
         margin: 1rem;
         border-radius: 0.5rem;
         overflow: hidden;
 
         display: flex;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
         gap: 0.5rem;
+
+        position: relative;
+        background-color: rgba(25, 25, 25, 0.9);
     }
 `
 
@@ -21,13 +30,7 @@ export const Navbar = () => {
     const location = useLocation()
 
     return (
-        <Styled
-            style={
-                location.pathname === "/"
-                    ? { position: "fixed", top: "0", width: "100%" }
-                    : undefined
-            }
-        >
+        <Styled float={location.pathname === "/"}>
             <div className="content">
                 <Navlink title={"Landing"} url={"/"} />
                 <Navlink title={"Home"} url={"/home"} />

@@ -10,20 +10,39 @@ const Styled = styled(Link)`
     color: whitesmoke;
     text-decoration: none;
 
+    transition: transform 50ms;
+    border: 5px solid transparent;
+
+    &:hover {
+        border-color: white;
+        transform: scale(1.025);
+        z-index: 2;
+    }
+
     .image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
         position: relative;
-        background-image: url(${(props) => props.image});
+        & > * {
+            z-index: 1;
+        }
+
+        background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+            url(${(props) => props.image});
         background-size: cover;
         background-position: center;
+        backdrop-filter: blur(2px);
+
+        img {
+            width: 100%;
+        }
 
         .rating {
-            position: absolute;
-            right: 0;
-
             padding: 0.5rem;
             font-size: 1.5rem;
-
-            background-color: rgba(0, 0, 0, 0.5);
         }
     }
 
@@ -38,6 +57,14 @@ const Styled = styled(Link)`
             font-size: 1.5rem;
         }
     }
+
+    .genres {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+    }
 `
 
 export const Card = ({ id, name, rating, desc, image, released }) => {
@@ -45,6 +72,12 @@ export const Card = ({ id, name, rating, desc, image, released }) => {
         <Styled image={image} to={`/detail/${id}`}>
             <div className="image">
                 <span className="rating">{rating}/5</span>
+                <img src={image} alt="cover" />
+                <div className="genres">
+                    <span>Genre</span>
+                    <span>Genre</span>
+                    <span>Genre</span>
+                </div>
             </div>
             <div className="body">
                 <span className="name">{name}</span>
