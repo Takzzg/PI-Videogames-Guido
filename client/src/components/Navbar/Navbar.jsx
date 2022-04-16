@@ -5,16 +5,15 @@ import styled from "styled-components"
 import { Navlink } from "./NavLink"
 
 const Styled = styled.div`
-    position: ${(props) => (props.float ? "absolute" : "sticky")};
+    /* position: ${(props) => (props.float ? "absolute" : "sticky")}; */
     top: 0;
     z-index: 10;
     width: 100%;
-    /* overflow: hidden; */
+    background-color: transparent;
 
     .content {
         margin: 1rem;
         border-radius: 0.5rem;
-        overflow: hidden;
 
         display: flex;
         align-items: stretch;

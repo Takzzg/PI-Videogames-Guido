@@ -10,12 +10,12 @@ const Styled = styled(Link)`
     color: whitesmoke;
     text-decoration: none;
 
-    transition: transform 50ms;
+    transition: border 100ms;
     border: 5px solid transparent;
 
     &:hover {
         border-color: white;
-        transform: scale(1.025);
+        /* transform: scale(1.025); */
         z-index: 2;
     }
 

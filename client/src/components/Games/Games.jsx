@@ -7,7 +7,9 @@ import { Pagination } from "./Pagination"
 import { useSelector } from "react-redux"
 
 const Styled = styled.div`
+    /* height: 100%; */
     padding: 1rem;
+    overflow-y: scroll;
 
     .cardsCont {
         display: grid;

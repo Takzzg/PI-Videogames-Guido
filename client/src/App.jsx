@@ -10,11 +10,14 @@ import styled from "styled-components"
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
+    min-height: 0;
+    min-width: 0;
 
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #363636;
     color: white;
 
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 `
 
 function App() {
