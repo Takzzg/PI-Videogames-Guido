@@ -42,6 +42,8 @@ const Styled = styled.div`
                 color: black;
             }
 
+            width: 250px;
+
             /* min-width: 250px; */
         }
     }
@@ -72,7 +74,7 @@ export const Landing = () => {
         <Styled>
             <div className="main">
                 <div>PI VideoGames</div>
-                <Link to={"/home"}>Home{" ->"}</Link>
+                <Link to={"/home"}>Home</Link>
             </div>
 
             <div className="footer">

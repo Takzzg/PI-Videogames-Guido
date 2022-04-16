@@ -1,7 +1,7 @@
 import "./App.css"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Create, Detail, Home, Landing } from "./pages"
+import { Create, Detail, Home, Landing, Test } from "./pages"
 import { Navbar } from "./components"
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/detail/:id" element={<Detail />} />
                     <Route path="/create" element={<Create />} />
+                    <Route path="/test" element={<Test />} />
                 </Routes>
             </BrowserRouter>
         </div>
