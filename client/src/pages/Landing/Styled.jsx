@@ -5,7 +5,10 @@ import bg from "../../assets/landing.jpg"
 const Styled = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url(${bg});
+    background-size: cover;
+    background-position: center;
     height: 100vh;
+    width: 100vw;
 
     display: grid;
     grid-template-rows: 1fr auto;

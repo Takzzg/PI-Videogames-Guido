@@ -1,8 +1,7 @@
 import styled from "styled-components"
 
 const Styled = styled.div`
-    display: grid;
-    grid-template-columns: 25% 1fr;
+    display: flex;
 
     position: relative;
     min-height: 0;
