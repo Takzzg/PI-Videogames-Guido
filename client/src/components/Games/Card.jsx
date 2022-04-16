@@ -12,9 +12,9 @@ const Styled = styled(Link)`
 
     .image {
         position: relative;
-        width: 100%;
         background-image: url(${(props) => props.image});
         background-size: cover;
+        background-position: center;
 
         .rating {
             position: absolute;

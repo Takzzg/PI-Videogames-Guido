@@ -1,10 +1,19 @@
-import "./App.css"
-
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+
+import "./App.css"
 import { Create, Detail, Home, Landing, Test } from "./pages"
 import { Navbar } from "./components"
+import { fetchGames } from "./redux/actions"
 
 function App() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchGames())
+    }, [dispatch])
+
     return (
         <div className="App">
             <BrowserRouter>

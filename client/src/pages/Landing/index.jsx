@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import Styled from "./Styled"
+import { Styled } from "./Styled"
 
 export const Landing = () => {
     return (

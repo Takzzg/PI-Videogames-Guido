@@ -67,4 +67,4 @@ const Styled = styled.div`
     }
 `
 
-export default Styled
+export { Styled }

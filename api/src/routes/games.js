@@ -15,7 +15,10 @@ router.get("/", async (req, res) => {
             return res.send(first15)
         }
 
-        let api = await fetch(apiUrl)
+        let api = []
+        for (let i = 0; i < 4; i++)
+            api.push(...(await fetch(`${apiUrl}&page=${i + 1}&page_size=40`)))
+
         let pg = await Videogame.findAll()
 
         res.send([...pg, ...api])

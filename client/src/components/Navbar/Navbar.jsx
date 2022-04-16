@@ -6,8 +6,6 @@ import themes from "../../theme.json"
 import { Navlink } from "./NavLink"
 
 const Styled = styled.div`
-    width: 100vw;
-
     .content {
         margin: 1rem;
         background-color: ${themes.dark.palette.dark};
@@ -28,7 +26,7 @@ export const Navbar = () => {
         <Styled
             style={
                 location.pathname === "/"
-                    ? { position: "fixed", top: "0" }
+                    ? { position: "fixed", top: "0", width: "100%" }
                     : undefined
             }
         >
