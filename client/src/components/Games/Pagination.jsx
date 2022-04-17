@@ -11,18 +11,24 @@ export const Pagination = ({ page, max }) => {
 
     return (
         <div>
+            <button disabled={page === 0} onClick={() => handleSetPage(0)}>
+                {"<<"}
+            </button>
             <button
                 disabled={page === 0}
                 onClick={() => handleSetPage(page - 1)}
             >
                 {"<"}
             </button>
-            <PageButtons page={page} max={max} dispatch={handleSetPage} />
+            <PageButtons page={page} max={max} setPage={handleSetPage} />
             <button
                 disabled={page === max}
                 onClick={() => handleSetPage(page + 1)}
             >
                 {">"}
+            </button>
+            <button disabled={page === max} onClick={() => handleSetPage(max)}>
+                {">>"}
             </button>
         </div>
     )
