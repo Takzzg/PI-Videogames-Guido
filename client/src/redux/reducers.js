@@ -1,18 +1,33 @@
-import { FETCH_GAMES, FILTER_GAMES, FETCH_DETAIL, SET_PAGE } from "./types"
+import {
+    FETCH_GAMES,
+    FILTER_GAMES,
+    FETCH_DETAIL,
+    SET_PAGE,
+    FETCH_GENRES
+} from "./types"
 
 const initialState = {
     allGames: [],
+    allGenres: [],
     filteredGames: [],
     detail: {},
     page: 0
 }
 
 export const rootReducer = (state = initialState, action) => {
+    // console.log(action.type, action.payload)
+
     switch (action.type) {
         case FETCH_GAMES:
             return {
                 ...state,
                 allGames: [...state.allGames, ...action.payload]
+            }
+
+        case FETCH_GENRES:
+            return {
+                ...state,
+                allGenres: action.payload
             }
 
         case FETCH_DETAIL:

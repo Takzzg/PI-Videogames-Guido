@@ -5,6 +5,7 @@ const Styled = styled.div`
 
     position: relative;
     min-height: 0;
+    width: 100%;
 
     .searchField {
         position: sticky;
