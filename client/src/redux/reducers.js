@@ -3,7 +3,8 @@ import {
     FILTER_GAMES,
     FETCH_DETAIL,
     SET_PAGE,
-    FETCH_GENRES
+    FETCH_GENRES,
+    ERROR
 } from "./types"
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
     allGenres: [],
     filteredGames: [],
     detail: {},
-    page: 0
+    page: 0,
+    error: undefined
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -43,6 +45,9 @@ export const rootReducer = (state = initialState, action) => {
             if (n > state.allGames.length / 15) n = state.allGames.length / 15
 
             return { ...state, page: n }
+
+        case ERROR:
+            return { ...state, error: action.payload }
 
         default:
             return state
