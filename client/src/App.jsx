@@ -3,15 +3,12 @@ import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 
 import { Create, Detail, Home, Landing, Test } from "./pages"
-import { fetchGames } from "./redux/actions"
+import { fetchGames, fetchGenres } from "./redux/actions"
 import styled from "styled-components"
 import { Sidebar } from "./components"
 
 const Styled = styled.div`
     display: grid;
-    /* align-items: stretch;
-    justify-content: stretch; */
-    /* flex-direction: column; */
     grid-template-columns: auto 1fr;
 
     min-height: 0;
@@ -29,6 +26,7 @@ function App() {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(fetchGenres())
         dispatch(fetchGames())
     }, [dispatch])
 

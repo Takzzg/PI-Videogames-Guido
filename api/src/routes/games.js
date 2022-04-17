@@ -16,8 +16,15 @@ router.get("/", async (req, res) => {
         }
 
         let api = []
-        for (let i = 0; i < 4; i++)
-            api.push(...(await fetch(`${apiUrl}&page=${i + 1}&page_size=40`)))
+        let urls = []
+
+        for (let i = 0; i < 3; i++)
+            urls.push(
+                fetch(`${apiUrl}&page=${i + 1}&page_size=40`).then((r) => {
+                    api.push(...r)
+                })
+            )
+        await Promise.all(urls)
 
         let pg = await Videogame.findAll()
 

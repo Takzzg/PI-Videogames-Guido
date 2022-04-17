@@ -25,10 +25,9 @@ export const fetchDetail = (id) => (dispatch) =>
         .get(`${baseUrl}/videogame/${id}`)
         .then((res) => dispatch({ type: FETCH_DETAIL, payload: res.data }))
 
-export const filterGames = (name, diet, orderBy, dir) => {
-    return { type: FILTER_GAMES, payload: { name, diet, orderBy, dir } }
-}
+export const filterGames = (name, diet, orderBy, dir) => ({
+    type: FILTER_GAMES,
+    payload: { name, diet, orderBy, dir }
+})
 
-export const setPage = (page) => {
-    return { type: SET_PAGE, payload: page }
-}
+export const setPage = (page) => ({ type: SET_PAGE, payload: page })
