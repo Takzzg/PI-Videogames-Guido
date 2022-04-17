@@ -24,11 +24,19 @@ router.get("/", async (req, res) => {
                     api.push(...r)
                 })
             )
-        await Promise.all(urls)
+        await Promise.all(urls).finally(() =>
+            console.log("finished fetching games")
+        )
 
         let pg = await Videogame.findAll()
 
-        res.send([...pg, ...api])
+        let games = [...pg, ...api].sort((a, b) => {
+            if (a.name > b.name) return 1
+            if (a.name < b.name) return -1
+            return 0
+        })
+
+        res.send(games)
     } catch (error) {
         res.send(error)
     }
