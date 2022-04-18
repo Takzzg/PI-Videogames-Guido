@@ -1,6 +1,21 @@
 import React from "react"
 import { useDispatch } from "react-redux"
+import styled from "styled-components"
+
 import { setPage } from "../../redux/actions/sidebar"
+
+const Styled = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+
+    button {
+        cursor: pointer;
+        padding: 0.75rem;
+    }
+`
 
 export const Pagination = ({ page, max }) => {
     const dispatch = useDispatch()
@@ -10,7 +25,7 @@ export const Pagination = ({ page, max }) => {
     }
 
     return (
-        <div>
+        <Styled>
             <button disabled={page === 0} onClick={() => handleSetPage(0)}>
                 {"<<"}
             </button>
@@ -30,7 +45,7 @@ export const Pagination = ({ page, max }) => {
             <button disabled={page === max} onClick={() => handleSetPage(max)}>
                 {">>"}
             </button>
-        </div>
+        </Styled>
     )
 }
 

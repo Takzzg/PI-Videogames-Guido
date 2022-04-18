@@ -21,6 +21,7 @@ const Styled = styled.div`
     color: whitesmoke;
 
     overflow: hidden;
+    scrollbar-color: ${theme.bg_light} ${theme.bg_dark};
 
     input,
     button {
@@ -34,6 +35,10 @@ const Styled = styled.div`
             background-color: ${theme.bg_dark};
             color: ${theme.bg_light};
         }
+    }
+
+    button {
+        cursor: pointer;
     }
 `
 

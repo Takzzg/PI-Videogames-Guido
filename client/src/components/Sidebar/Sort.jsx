@@ -6,11 +6,12 @@ import { setSort } from "../../redux/actions/sidebar"
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 1rem;
 
     .header {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .options {
@@ -38,22 +39,23 @@ export const Sort = () => {
         <Styled>
             <div className="header">
                 <span className="title">Sort </span>
+                <div>
+                    <button
+                        onClick={toggleDir}
+                        className="dir"
+                        disabled={sortParams.dir === "asc"}
+                    >
+                        ASC
+                    </button>
 
-                <button
-                    onClick={toggleDir}
-                    className="dir"
-                    disabled={sortParams.dir === "asc"}
-                >
-                    ASC
-                </button>
-
-                <button
-                    onClick={toggleDir}
-                    className="dir"
-                    disabled={sortParams.dir === "desc"}
-                >
-                    DESC
-                </button>
+                    <button
+                        onClick={toggleDir}
+                        className="dir"
+                        disabled={sortParams.dir === "desc"}
+                    >
+                        DESC
+                    </button>
+                </div>
             </div>
 
             <div className="options">
