@@ -24,9 +24,7 @@ router.get("/", async (req, res) => {
                     api.push(...r)
                 })
             )
-        await Promise.all(urls).finally(() =>
-            console.log("finished fetching games")
-        )
+        await Promise.all(urls)
 
         let pg = await Videogame.findAll()
 

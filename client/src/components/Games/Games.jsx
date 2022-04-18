@@ -23,29 +23,39 @@ const Styled = styled.div`
 `
 
 export const Games = ({ games }) => {
-    const page = useSelector((state) => state.page)
-    const lastPage = Math.floor(games.length / 15)
+    const pagination = useSelector((state) => state.sidebar.pagination)
 
     return (
-        <Styled games={games}>
+        <Styled>
             {games ? (
                 games.length > 0 ? (
                     <>
-                        <Pagination page={page} max={lastPage} />
+                        <Pagination
+                            page={pagination.current}
+                            max={pagination.max}
+                        />
                         <div className="cardsCont">
-                            {games.slice(page * 15, page * 15 + 15).map((g) => (
-                                <Card
-                                    key={g.id}
-                                    id={g.id}
-                                    name={g.name}
-                                    rating={g.rating}
-                                    desc={g.desc}
-                                    image={g.background_image || cover}
-                                    released={g.released}
-                                />
-                            ))}
+                            {games
+                                .slice(
+                                    pagination.current * 15,
+                                    pagination.current * 15 + 15
+                                )
+                                .map((g) => (
+                                    <Card
+                                        key={g.id}
+                                        id={g.id}
+                                        name={g.name}
+                                        rating={g.rating}
+                                        desc={g.desc}
+                                        image={g.background_image || cover}
+                                        released={g.released}
+                                    />
+                                ))}
                         </div>
-                        <Pagination page={page} max={lastPage} />
+                        <Pagination
+                            page={pagination.current}
+                            max={pagination.max}
+                        />
                     </>
                 ) : (
                     "Loading Games"

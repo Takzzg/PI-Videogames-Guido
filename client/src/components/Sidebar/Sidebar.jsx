@@ -10,16 +10,11 @@ const Styled = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    overflow: auto;
+    overflow-y: auto;
 
     .divider {
-        padding: 0;
         min-height: 5px;
         background-color: ${theme.bg_light};
-    }
-
-    .inputs {
-        overflow: auto;
     }
 
     .title {

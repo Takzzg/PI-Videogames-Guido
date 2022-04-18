@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
 import { theme } from "../../assets/theme"
+import { setExcludedGenres } from "../../redux/actions/sidebar"
 
 const Checkbox = styled.span`
     padding: 1rem;
@@ -20,33 +21,34 @@ const Styled = styled.span`
 `
 
 export const Genres = () => {
-    const allGenres = useSelector((state) => state.allGenres)
-    const [selected, setSelected] = useState({})
+    const allGenres = useSelector((state) => state.root.allGenres)
+    const excluded = useSelector((state) => state.sidebar.excludedGenres)
+    const dispatch = useDispatch()
 
-    useEffect(() => {
-        let state = {}
-        allGenres.forEach((genre) => (state[genre.id] = true))
-        setSelected(state)
-    }, [allGenres])
+    const toggleGenre = (e) => {
+        const id = parseInt(e.target.id)
+        let newExcluded = [...excluded]
 
-    const handleClick = (id) => {
-        const state = { ...selected }
-        state[id] = !state[id]
-        setSelected(state)
+        if (newExcluded.includes(id))
+            newExcluded = newExcluded.filter((e) => e !== id)
+        else newExcluded.push(id)
+
+        dispatch(setExcludedGenres(newExcluded))
     }
 
-    const Check = ({ id, name }) => {
+    const Check = ({ id, name, active }) => {
         return (
-            <Checkbox active={selected[id]} onClick={() => handleClick(id)}>
+            <Checkbox id={id} active={active} onClick={toggleGenre}>
                 {name}
             </Checkbox>
         )
     }
 
     const toggleAllG = (value) => {
-        const state = { ...selected }
-        for (const id in state) state[id] = value
-        setSelected(state)
+        if (value) return dispatch(setExcludedGenres([]))
+
+        const newExcluded = allGenres.map((g) => g.id)
+        dispatch(setExcludedGenres(newExcluded))
     }
 
     return (
@@ -59,7 +61,12 @@ export const Genres = () => {
 
             {allGenres &&
                 allGenres.map((g) => (
-                    <Check key={g.id} id={g.id} name={g.name} />
+                    <Check
+                        key={g.id}
+                        id={g.id}
+                        name={g.name}
+                        active={!excluded.includes(g.id)}
+                    />
                 ))}
         </Styled>
     )

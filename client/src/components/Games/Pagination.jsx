@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch } from "react-redux"
-import { setPage } from "../../redux/actions"
+import { setPage } from "../../redux/actions/sidebar"
 
 export const Pagination = ({ page, max }) => {
     const dispatch = useDispatch()

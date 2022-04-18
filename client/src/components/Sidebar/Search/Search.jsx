@@ -1,76 +1,37 @@
-import React, { useState } from "react"
+import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
-import { theme } from "../../../assets/theme"
+import { setName } from "../../../redux/actions/sidebar"
 import { Rating } from "./Rating"
 
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
-
     padding: 1rem;
     gap: 1rem;
-
-    .grid {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        align-items: center;
-        justify-content: center;
-    }
-
-    input,
-    button {
-        background-color: ${theme.bg_light};
-        color: white;
-        border: none;
-        padding: 0.5rem;
-        line-height: 1rem;
-    }
 
     .label {
         text-align: right;
     }
+
+    .fields {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
 `
 
 export const Search = () => {
-    const [form, setForm] = useState({
-        name: "",
-        rating: 3,
-        genres: [],
-        threshold: "greater"
-    })
-
-    const handleSetForm = (e) => {
-        const { name, value } = e.target
-
-        switch (name) {
-            case "name":
-                return setForm({ ...form, name: e.target.value })
-
-            case "rating":
-                let newValue = form.rating + parseInt(value)
-
-                if (newValue < 0) newValue = 0
-                if (newValue > 5) newValue = 5
-
-                return setForm({ ...form, rating: newValue })
-
-            case "threshold":
-                return setForm({
-                    ...form,
-                    threshold:
-                        form.threshold === "greater" ? "lesser" : "greater"
-                })
-
-            default:
-                return
-        }
-    }
+    const name = useSelector((state) => state.sidebar.name)
+    const dispatch = useDispatch()
 
     return (
         <Styled>
-            <span className="title">Search for a Game</span>
+            <span className="title">Search</span>
 
-            <div className="grid">
+            <div className="fields">
                 <span className="label">Name</span>
 
                 <input
@@ -78,16 +39,11 @@ export const Search = () => {
                     type="text"
                     name="name"
                     placeholder="The Legend of Zelda"
-                    value={form.name}
-                    onChange={handleSetForm}
+                    value={name}
+                    onChange={(e) => dispatch(setName(e.target.value))}
                 />
                 <span className="label">Rating</span>
-
-                <Rating
-                    handleSetForm={handleSetForm}
-                    rating={form.rating}
-                    threshold={form.threshold}
-                />
+                <Rating />
             </div>
         </Styled>
     )

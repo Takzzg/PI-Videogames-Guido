@@ -12,7 +12,7 @@ const Styled = styled.div`
 `
 
 export const Home = () => {
-    const allGames = useSelector((state) => state.allGames)
+    const allGames = useSelector((state) => state.root.allGames)
 
     return (
         <Styled>

@@ -5,7 +5,7 @@ import {
     FETCH_DETAIL,
     FILTER_GAMES,
     FETCH_GENRES,
-    SET_PAGE,
+    SET_MAX_PAGE,
     ERROR
 } from "./types"
 
@@ -14,7 +14,13 @@ const baseUrl = "http://localhost:3001"
 export const fetchGames = () => (dispatch) =>
     axios
         .get(`${baseUrl}/videogames`)
-        .then((res) => dispatch({ type: FETCH_GAMES, payload: res.data }))
+        .then((res) => {
+            dispatch({ type: FETCH_GAMES, payload: res.data })
+            dispatch({
+                type: SET_MAX_PAGE,
+                payload: Math.floor(res.data.length / 15)
+            })
+        })
         .catch((err) => ({ type: ERROR, payload: err }))
 
 export const fetchGenres = () => (dispatch) =>
@@ -33,5 +39,3 @@ export const filterGames = (name, diet, orderBy, dir) => ({
     type: FILTER_GAMES,
     payload: { name, diet, orderBy, dir }
 })
-
-export const setPage = (page) => ({ type: SET_PAGE, payload: page })
