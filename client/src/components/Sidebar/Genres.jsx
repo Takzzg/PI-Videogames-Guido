@@ -1,17 +1,24 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
-import { theme } from "../../assets/theme"
 import { setExcludedGenres } from "../../redux/actions/sidebar"
 
 const Checkbox = styled.span`
     padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url(${(props) => props.image});
+    background-size: cover;
+    background-position: 20%;
 
     ${(props) =>
-        props.active &&
+        !props.active &&
         css`
-            background-color: ${theme.bg_white};
-            color: black;
+            filter: grayscale();
         `}
 `
 
@@ -36,9 +43,14 @@ export const Genres = () => {
         dispatch(setExcludedGenres(newExcluded))
     }
 
-    const Check = ({ id, name, active }) => {
+    const Check = ({ id, name, active, image }) => {
         return (
-            <Checkbox id={id} active={active} onClick={toggleGenre}>
+            <Checkbox
+                image={image}
+                id={id}
+                active={active}
+                onClick={toggleGenre}
+            >
                 {name}
             </Checkbox>
         )
@@ -62,6 +74,7 @@ export const Genres = () => {
             {allGenres &&
                 allGenres.map((g) => (
                     <Check
+                        image={g.image}
                         key={g.id}
                         id={g.id}
                         name={g.name}

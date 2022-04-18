@@ -26,13 +26,14 @@ router.get("/", async (req, res) => {
             )
         await Promise.all(urls)
 
-        let pg = await Videogame.findAll()
+        let pg = await Videogame.findAll({ include: Genre })
 
-        let games = [...pg, ...api].sort((a, b) => {
-            if (a.name > b.name) return 1
-            if (a.name < b.name) return -1
-            return 0
-        })
+        let games = [...pg, ...api]
+        // .sort((a, b) => {
+        //     if (a.name > b.name) return 1
+        //     if (a.name < b.name) return -1
+        //     return 0
+        // })
 
         res.send(games)
     } catch (error) {

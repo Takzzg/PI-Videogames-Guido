@@ -1,7 +1,6 @@
 import React from "react"
 
 import { Card } from "./Card"
-import cover from "../../assets/cover.jpg"
 import styled from "styled-components"
 import { Pagination } from "./Pagination"
 import { useSelector } from "react-redux"
@@ -41,15 +40,7 @@ export const Games = ({ games }) => {
                                     pagination.current * 15 + 15
                                 )
                                 .map((g) => (
-                                    <Card
-                                        key={g.id}
-                                        id={g.id}
-                                        name={g.name}
-                                        rating={g.rating}
-                                        desc={g.desc}
-                                        image={g.background_image || cover}
-                                        released={g.released}
-                                    />
+                                    <Card key={g.id} game={g} />
                                 ))}
                         </div>
                         <Pagination

@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+
+import cover from "../../assets/cover.jpg"
 import { theme } from "../../assets/theme"
 
 const Styled = styled(Link)`
@@ -68,21 +70,36 @@ const Styled = styled(Link)`
     }
 `
 
-export const Card = ({ id, name, rating, desc, image, released }) => {
+export const Card = ({ game }) => {
+    const {
+        id,
+        name,
+        rating,
+        desc,
+        background_image = cover,
+        released,
+        genres
+    } = game
+
     return (
-        <Styled image={image} to={`/detail/${id}`}>
+        <Styled image={background_image} to={`/detail/${id}`}>
             <div className="image">
                 <span className="rating">{rating}/5</span>
-                <img src={image} alt="cover" />
+
+                <img src={background_image} alt="cover" />
+
                 <div className="genres">
-                    <span>Genre</span>
-                    <span>Genre</span>
-                    <span>Genre</span>
+                    {genres.map((g) => (
+                        <span key={id + g.id}>{g.name}</span>
+                    ))}
                 </div>
             </div>
+
             <div className="body">
                 <span className="name">{name}</span>
+
                 {desc && <span className="desc">{desc}</span>}
+
                 <span className="released">Released on: {released}</span>
             </div>
         </Styled>
