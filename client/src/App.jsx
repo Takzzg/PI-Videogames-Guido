@@ -5,19 +5,20 @@ import { useEffect } from "react"
 import { Create, Detail, Home, Landing, Test } from "./pages"
 import { fetchGames, fetchGenres } from "./redux/actions"
 import styled from "styled-components"
-import { Sidebar } from "./components"
+import { Navbar } from "./components"
+import { theme } from "./assets/theme"
 
 const Styled = styled.div`
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
 
     min-height: 0;
     min-width: 0;
     width: 100vw;
     height: 100vh;
 
-    background-color: #363636;
-    color: white;
+    background-color: ${theme.bg_medium};
+    color: whitesmoke;
 
     overflow: hidden;
 `
@@ -33,7 +34,7 @@ function App() {
     return (
         <Styled className="App">
             <BrowserRouter>
-                <Sidebar />
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/home" element={<Home />} />

@@ -1,15 +1,28 @@
 import React from "react"
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
+import { theme } from "../../assets/theme"
 
 const Styled = styled.div`
     a {
         display: flex;
         padding: 1.5rem 3rem;
         font-size: 1.25rem;
-        color: ${(props) => (props.active ? "black" : "white")};
-        background-color: ${(props) => (props.active ? "white" : "")};
         text-decoration: none;
+
+        ${(props) =>
+            props.active
+                ? css`
+                      color: black;
+                      background-color: ${theme.bg_white};
+                  `
+                : css`
+                      color: whitesmoke;
+
+                      &:hover {
+                          background-color: ${theme.bg_light};
+                      }
+                  `}
     }
 `
 

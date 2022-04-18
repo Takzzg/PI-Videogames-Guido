@@ -1,48 +1,66 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
+import { theme } from "../../assets/theme"
 
-const Styled = styled.div`
+const Checkbox = styled.span`
+    padding: 1rem;
+
+    ${(props) =>
+        props.active &&
+        css`
+            background-color: ${theme.bg_white};
+            color: black;
+        `}
+`
+
+const Styled = styled.span`
     display: flex;
     flex-direction: column;
 `
 
 export const Genres = () => {
     const allGenres = useSelector((state) => state.allGenres)
-    const [excluded, setExcluded] = useState([])
+    const [selected, setSelected] = useState({})
 
-    const handleCheck = (e) => {
-        if (excluded.includes(e.target.id))
-            setExcluded(excluded.filter((id) => id !== e.target.id))
-        else setExcluded([...excluded, e.target.id])
+    useEffect(() => {
+        let state = {}
+        allGenres.forEach((genre) => (state[genre.id] = true))
+        setSelected(state)
+    }, [allGenres])
+
+    const handleClick = (id) => {
+        const state = { ...selected }
+        state[id] = !state[id]
+        setSelected(state)
+    }
+
+    const Check = ({ id, name }) => {
+        return (
+            <Checkbox active={selected[id]} onClick={() => handleClick(id)}>
+                {name}
+            </Checkbox>
+        )
+    }
+
+    const toggleAllG = (value) => {
+        const state = { ...selected }
+        for (const id in state) state[id] = value
+        setSelected(state)
     }
 
     return (
         <Styled>
-            {allGenres.map((g) => (
-                <Check
-                    key={g.id}
-                    id={g.id}
-                    name={g.name}
-                    checked={!excluded.includes(g.name)}
-                    handleCheck={handleCheck}
-                />
-            ))}
-        </Styled>
-    )
-}
+            <span className="title">Filter by Genre</span>
+            <div className="bulk">
+                <button onClick={() => toggleAllG(true)}>All</button>
+                <button onClick={() => toggleAllG(false)}>None</button>
+            </div>
 
-const Check = ({ id, name, checked, handleCheck }) => {
-    return (
-        <div>
-            <input
-                type="checkbox"
-                name={name}
-                id={id}
-                defaultChecked={checked}
-                onChange={handleCheck}
-            />
-            {name}
-        </div>
+            {allGenres &&
+                allGenres.map((g) => (
+                    <Check key={g.id} id={g.id} name={g.name} />
+                ))}
+        </Styled>
     )
 }

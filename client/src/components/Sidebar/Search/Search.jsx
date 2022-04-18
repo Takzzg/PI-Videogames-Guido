@@ -1,26 +1,29 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import { theme } from "../../../assets/theme"
 import { Rating } from "./Rating"
 
 const Styled = styled.div`
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
 
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto;
+    padding: 1rem;
     gap: 1rem;
-    /* font-size: 1.5rem; */
-    align-items: center;
-    justify-content: center;
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        justify-content: center;
+    }
 
     input,
     button {
-        background-color: #404040;
+        background-color: ${theme.bg_light};
         color: white;
         border: none;
         padding: 0.5rem;
         line-height: 1rem;
-        /* font-size: 1.25rem; */
     }
 
     .label {
@@ -65,24 +68,27 @@ export const Search = () => {
 
     return (
         <Styled>
-            <span className="label">Name</span>
+            <span className="title">Search for a Game</span>
 
-            <input
-                className="input"
-                type="text"
-                name="name"
-                placeholder="The Legend of Zelda"
-                value={form.name}
-                onChange={handleSetForm}
-            />
+            <div className="grid">
+                <span className="label">Name</span>
 
-            <span className="label">Rating</span>
+                <input
+                    className="input"
+                    type="text"
+                    name="name"
+                    placeholder="The Legend of Zelda"
+                    value={form.name}
+                    onChange={handleSetForm}
+                />
+                <span className="label">Rating</span>
 
-            <Rating
-                handleSetForm={handleSetForm}
-                rating={form.rating}
-                threshold={form.threshold}
-            />
+                <Rating
+                    handleSetForm={handleSetForm}
+                    rating={form.rating}
+                    threshold={form.threshold}
+                />
+            </div>
         </Styled>
     )
 }

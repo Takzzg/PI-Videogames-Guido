@@ -1,20 +1,16 @@
 import styled from "styled-components"
 
 import bg from "../../assets/landing.jpg"
+import { theme } from "../../assets/theme"
 
 const Styled = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url(${bg});
     background-size: cover;
     background-position: center;
-    height: 100vh;
-    width: 100vw;
 
     display: grid;
     grid-template-rows: 1fr auto;
-    grid-template-areas:
-        "main"
-        "footer";
 
     .main {
         font-size: 2rem;
@@ -35,17 +31,14 @@ const Styled = styled.div`
             border: 3px solid white;
             border-radius: 1rem;
 
-            background-color: transparent;
             transition: all 0.25s ease-in-out;
 
             &:hover {
-                background-color: whitesmoke;
+                background-color: ${theme.bg_white};
                 color: black;
             }
 
             width: 250px;
-
-            /* min-width: 250px; */
         }
     }
 
@@ -54,7 +47,7 @@ const Styled = styled.div`
         align-items: center;
         justify-content: center;
 
-        padding: 0.5rem;
+        /* padding: 0.5rem; */
 
         .btn {
             text-decoration: none;
@@ -64,7 +57,7 @@ const Styled = styled.div`
 
             &:hover {
                 color: black;
-                background-color: whitesmoke;
+                background-color: ${theme.bg_white};
             }
         }
     }

@@ -1,39 +1,40 @@
 import React from "react"
-import { useLocation } from "react-router-dom"
 import styled from "styled-components"
+import { theme } from "../../assets/theme.js"
 
-import { Navlink } from "./NavLink"
 import { Genres } from "./Genres.jsx"
 import { Search } from "./Search/Search.jsx"
+import { Sort } from "./Sort.jsx"
 
 const Styled = styled.div`
-    background-color: rgba(0, 0, 0, 0.75);
-
-    position: ${(props) => (props.float ? "absolute" : "sticky")};
-    top: 0;
-    z-index: 10;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
 
     .divider {
-        height: 2px;
-        background-color: white;
+        padding: 0;
+        min-height: 5px;
+        background-color: ${theme.bg_light};
+    }
+
+    .inputs {
+        overflow: auto;
+    }
+
+    .title {
+        font-size: 2rem;
+        text-align: center;
     }
 `
 
 export const Sidebar = () => {
-    const location = useLocation()
-
     return (
-        <Styled float={location.pathname === "/"}>
-            <div>
-                <Navlink title={"Landing"} url={"/"} />
-                <Navlink title={"Home"} url={"/home"} />
-                <Navlink title={"Create"} url={"/create"} />
-                <Navlink title={"test"} url={"/test"} />
-            </div>
-            <div className="divider" />
+        <Styled>
             <Search />
-            <div className="divider" />
+            <div className="divider"></div>
+            <Sort />
+            <div className="divider"></div>
             <Genres />
         </Styled>
     )

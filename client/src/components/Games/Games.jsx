@@ -7,7 +7,6 @@ import { Pagination } from "./Pagination"
 import { useSelector } from "react-redux"
 
 const Styled = styled.div`
-    width: 100%;
     padding: 1rem;
     overflow-y: auto;
 

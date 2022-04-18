@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import { theme } from "../../assets/theme"
 
 const Styled = styled(Link)`
     display: grid;
@@ -48,7 +49,7 @@ const Styled = styled(Link)`
 
     .body {
         padding: 1rem;
-        background-color: black;
+        background-color: ${theme.bg_dark};
 
         display: flex;
         flex-direction: column;
