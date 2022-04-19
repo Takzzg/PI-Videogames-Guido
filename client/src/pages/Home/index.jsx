@@ -1,9 +1,7 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import styled from "styled-components"
 
 import { Games, Sidebar } from "../../components"
-
-import styled from "styled-components"
 
 const Styled = styled.div`
     display: grid;
@@ -12,12 +10,10 @@ const Styled = styled.div`
 `
 
 export const Home = () => {
-    const allGames = useSelector((state) => state.root.allGames)
-
     return (
         <Styled>
             <Sidebar />
-            <Games games={allGames} />
+            <Games />
         </Styled>
     )
 }

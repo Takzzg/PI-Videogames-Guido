@@ -1,5 +1,4 @@
 import React from "react"
-import { useDispatch } from "react-redux"
 import styled from "styled-components"
 
 import { setPage } from "../../redux/actions/sidebar"
@@ -17,9 +16,7 @@ const Styled = styled.div`
     }
 `
 
-export const Pagination = ({ page, max }) => {
-    const dispatch = useDispatch()
-
+export const Pagination = ({ page, max, dispatch }) => {
     const handleSetPage = (i) => {
         dispatch(setPage(i))
     }

@@ -33,7 +33,7 @@ export const Sort = () => {
         dispatch(setSort({ ...sortParams, dir: newDir }))
     }
 
-    const sortingProps = ["name", "date", "rating"]
+    const sortingProps = ["name", "released", "rating"]
 
     return (
         <Styled>

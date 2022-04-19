@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
-import { setExcludedGenres } from "../../redux/actions/sidebar"
+import { setIncludedGenres } from "../../redux/actions/sidebar"
 
 const Checkbox = styled.span`
     padding: 1rem;
@@ -9,8 +9,9 @@ const Checkbox = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.25rem;
 
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url(${(props) => props.image});
     background-size: cover;
     background-position: 20%;
@@ -19,6 +20,7 @@ const Checkbox = styled.span`
         !props.active &&
         css`
             filter: grayscale();
+            text-decoration: line-through;
         `}
 `
 
@@ -29,18 +31,18 @@ const Styled = styled.span`
 
 export const Genres = () => {
     const allGenres = useSelector((state) => state.root.allGenres)
-    const excluded = useSelector((state) => state.sidebar.excludedGenres)
+    const included = useSelector((state) => state.sidebar.includedGenres)
     const dispatch = useDispatch()
 
     const toggleGenre = (e) => {
         const id = parseInt(e.target.id)
-        let newExcluded = [...excluded]
+        let newIncluded = [...included]
 
-        if (newExcluded.includes(id))
-            newExcluded = newExcluded.filter((e) => e !== id)
-        else newExcluded.push(id)
+        if (newIncluded.includes(id))
+            newIncluded = newIncluded.filter((e) => e !== id)
+        else newIncluded.push(id)
 
-        dispatch(setExcludedGenres(newExcluded))
+        dispatch(setIncludedGenres(newIncluded))
     }
 
     const Check = ({ id, name, active, image }) => {
@@ -57,18 +59,28 @@ export const Genres = () => {
     }
 
     const toggleAllG = (value) => {
-        if (value) return dispatch(setExcludedGenres([]))
+        if (!value) return dispatch(setIncludedGenres([]))
 
-        const newExcluded = allGenres.map((g) => g.id)
-        dispatch(setExcludedGenres(newExcluded))
+        const newIncluded = allGenres.map((g) => g.id)
+        dispatch(setIncludedGenres(newIncluded))
     }
 
     return (
         <Styled>
             <span className="title">Filter by Genre</span>
             <div className="bulk">
-                <button onClick={() => toggleAllG(true)}>All</button>
-                <button onClick={() => toggleAllG(false)}>None</button>
+                <button
+                    disabled={included.length === allGenres.length}
+                    onClick={() => toggleAllG(true)}
+                >
+                    All
+                </button>
+                <button
+                    disabled={included.length === 0}
+                    onClick={() => toggleAllG(false)}
+                >
+                    None
+                </button>
             </div>
 
             {allGenres &&
@@ -78,7 +90,7 @@ export const Genres = () => {
                         key={g.id}
                         id={g.id}
                         name={g.name}
-                        active={!excluded.includes(g.id)}
+                        active={included.includes(g.id)}
                     />
                 ))}
         </Styled>
