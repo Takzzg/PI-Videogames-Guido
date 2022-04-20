@@ -69,22 +69,15 @@ const Styled = styled(Link)`
 `
 
 export const Card = ({ game }) => {
-    const {
-        id,
-        name,
-        rating,
-        desc,
-        background_image = cover,
-        released,
-        genres
-    } = game
+    const { id, name, rating, desc, background_image, released, genres } = game
+    const image = background_image || cover
 
     return (
-        <Styled image={background_image} to={`/detail/${id}`}>
+        <Styled image={image} to={`/detail/${id}`}>
             <div className="image">
                 <span className="rating">{rating}/5</span>
 
-                <img src={background_image} alt="cover" />
+                <img src={image} alt="cover" />
 
                 <div className="genres">
                     {genres.map((g) => (

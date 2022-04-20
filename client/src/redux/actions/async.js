@@ -3,9 +3,9 @@ import axios from "axios"
 import {
     FETCH_GAMES,
     FETCH_DETAIL,
-    FILTER_GAMES,
     FETCH_GENRES,
-    ERROR
+    ERROR,
+    SET_GAMES
 } from "./types"
 
 const baseUrl = "http://localhost:3001"
@@ -28,6 +28,8 @@ export const fetchDetail = (id) => (dispatch) =>
         .then((res) => dispatch({ type: FETCH_DETAIL, payload: res.data }))
         .catch((err) => ({ type: ERROR, payload: err }))
 
-export const filterGames = () => ({
-    type: FILTER_GAMES
-})
+export const setGames = (name) => (dispatch) =>
+    axios
+        .get(`${baseUrl}/videogames/?name=${name}`)
+        .then((res) => dispatch({ type: SET_GAMES, payload: res.data }))
+        .catch((err) => ({ type: ERROR, payload: err }))

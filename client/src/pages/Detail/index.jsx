@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 
-import { fetchDetail } from "../../redux/actions/root"
+import { fetchDetail } from "../../redux/actions/async"
 import cover from "../../assets/cover.jpg"
 import { theme } from "../../assets/theme"
 import { Genre, Message } from "../../components"

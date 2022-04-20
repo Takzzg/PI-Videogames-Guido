@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 
 import { Create, Detail, Home, Landing, Test } from "./pages"
-import { fetchGames, fetchGenres } from "./redux/actions/root"
+import { fetchGames, fetchGenres } from "./redux/actions/async"
 import styled from "styled-components"
 import { Navbar } from "./components"
 import { theme } from "./assets/theme"

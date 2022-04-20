@@ -4,6 +4,7 @@ import {
     FETCH_GAMES,
     FETCH_GENRES,
     FILTER_GAMES,
+    SET_GAMES,
     SET_INCLUDED_G,
     SET_MAX_PAGE,
     SET_NAME,
@@ -16,6 +17,7 @@ const initialState = {
     root: {
         allGames: [],
         filteredGames: [],
+        searchResults: [],
         allGenres: [],
         detail: {}
     },
@@ -33,7 +35,12 @@ const reducers = (state = initialState, action) => {
     let newState = { ...state }
 
     const filterGames = () => {
-        let newFilteredGames = newState.root.allGames.sort((a, b) => {
+        let newFilteredGames =
+            newState.root.searchResults.length > 0
+                ? [...newState.root.searchResults]
+                : [...newState.root.allGames]
+
+        newFilteredGames = newFilteredGames.sort((a, b) => {
             let propA = a[newState.sidebar.sortParams.prop]
             let propB = b[newState.sidebar.sortParams.prop]
 
@@ -138,6 +145,11 @@ const reducers = (state = initialState, action) => {
 
         case ERROR:
             newState.sidebar.error = action.payload
+            break
+
+        case SET_GAMES:
+            newState.root.searchResults = action.payload
+            filterGames()
             break
 
         default:

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
 
 import { Genre } from "../Genre"
-import { setIncludedGenres } from "../../redux/actions/sidebar"
+import { setIncludedGenres } from "../../redux/actions/sync"
 
 const Checkbox = styled.span`
     cursor: pointer;

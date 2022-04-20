@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { setPage } from "../../redux/actions/sidebar"
+import { setPage } from "../../redux/actions/sync"
 
 const Styled = styled.div`
     display: flex;

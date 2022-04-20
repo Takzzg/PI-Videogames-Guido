@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { setSort } from "../../redux/actions/sidebar"
+import { setSort } from "../../redux/actions/sync"
 
 const Styled = styled.div`
     display: flex;

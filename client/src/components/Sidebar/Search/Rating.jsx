@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { setRating } from "../../../redux/actions/sidebar"
+import { setRating } from "../../../redux/actions/sync"
 
 const Styled = styled.span`
     display: flex;
