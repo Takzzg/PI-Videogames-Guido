@@ -4,6 +4,7 @@ import { Card } from "./Card"
 import styled from "styled-components"
 import { Pagination } from "./Pagination"
 import { useDispatch, useSelector } from "react-redux"
+import { Message } from "../Message"
 
 const Styled = styled.div`
     padding: 1rem;
@@ -12,23 +13,8 @@ const Styled = styled.div`
     .cardsCont {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(auto, 300px);
         gap: 1rem;
-
-        & > * {
-            min-height: 400px;
-        }
     }
-`
-
-const Message = styled.div`
-    /* background-color: red; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 3rem;
-    color: white;
 `
 
 const Content = ({ games, pagination, dispatch }) => {

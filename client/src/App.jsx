@@ -14,13 +14,11 @@ const Styled = styled.div`
 
     min-height: 0;
     min-width: 0;
-    width: 100vw;
     height: 100vh;
 
     background-color: ${theme.bg_medium};
     color: whitesmoke;
 
-    overflow: hidden;
     scrollbar-color: ${theme.bg_light} ${theme.bg_dark};
 
     input,

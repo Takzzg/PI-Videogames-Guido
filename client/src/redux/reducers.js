@@ -85,10 +85,9 @@ const reducers = (state = initialState, action) => {
     }
 
     const setMaxPage = () => {
-        newState.sidebar.pagination = {
-            ...newState.sidebar.pagination,
-            max: Math.floor(newState.root.filteredGames.length / 15)
-        }
+        newState.sidebar.pagination.max = Math.floor(
+            newState.root.filteredGames.length / 15
+        )
     }
 
     switch (action.type) {
@@ -102,11 +101,8 @@ const reducers = (state = initialState, action) => {
             break
 
         case FETCH_GENRES:
-            newState.root = { ...newState.root, allGenres: action.payload }
-            newState.sidebar = {
-                ...newState.sidebar,
-                includedGenres: action.payload.map((g) => g.id)
-            }
+            newState.root.allGenres = action.payload
+            newState.sidebar.includedGenres = action.payload.map((g) => g.id)
             break
 
         case FETCH_DETAIL:
@@ -118,7 +114,7 @@ const reducers = (state = initialState, action) => {
             break
 
         case SET_RATING:
-            newState.sidebar = { ...newState.sidebar, rating: action.payload }
+            newState.sidebar.rating = action.payload
             filterGames()
             break
 
@@ -128,10 +124,7 @@ const reducers = (state = initialState, action) => {
             break
 
         case SET_SORT:
-            newState.sidebar = {
-                ...newState.sidebar,
-                sortParams: action.payload
-            }
+            newState.sidebar.sortParams = action.payload
             filterGames()
             break
 

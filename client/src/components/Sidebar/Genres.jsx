@@ -1,20 +1,12 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
+
+import { Genre } from "../Genre"
 import { setIncludedGenres } from "../../redux/actions/sidebar"
 
 const Checkbox = styled.span`
-    padding: 1rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url(${(props) => props.image});
-    background-size: cover;
-    background-position: 20%;
 
     ${(props) =>
         !props.active &&
@@ -22,11 +14,19 @@ const Checkbox = styled.span`
             filter: grayscale();
             text-decoration: line-through;
         `}
+
+    .cont {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 `
 
 const Styled = styled.span`
     display: flex;
     flex-direction: column;
+    align-items: center;
 `
 
 export const Genres = () => {
@@ -34,8 +34,7 @@ export const Genres = () => {
     const included = useSelector((state) => state.sidebar.includedGenres)
     const dispatch = useDispatch()
 
-    const toggleGenre = (e) => {
-        const id = parseInt(e.target.id)
+    const toggleGenre = (id) => {
         let newIncluded = [...included]
 
         if (newIncluded.includes(id))
@@ -47,20 +46,14 @@ export const Genres = () => {
 
     const Check = ({ id, name, active, image }) => {
         return (
-            <Checkbox
-                image={image}
-                id={id}
-                active={active}
-                onClick={toggleGenre}
-            >
-                {name}
+            <Checkbox active={active} onClick={() => toggleGenre(id)}>
+                <Genre image={image} name={name} />
             </Checkbox>
         )
     }
 
     const toggleAllG = (value) => {
         if (!value) return dispatch(setIncludedGenres([]))
-
         const newIncluded = allGenres.map((g) => g.id)
         dispatch(setIncludedGenres(newIncluded))
     }
@@ -68,6 +61,7 @@ export const Genres = () => {
     return (
         <Styled>
             <span className="title">Filter by Genre</span>
+
             <div className="bulk">
                 <button
                     disabled={included.length === allGenres.length}
@@ -83,8 +77,8 @@ export const Genres = () => {
                 </button>
             </div>
 
-            {allGenres &&
-                allGenres.map((g) => (
+            <div className="cont">
+                {allGenres?.map((g) => (
                     <Check
                         image={g.image}
                         key={g.id}
@@ -93,6 +87,7 @@ export const Genres = () => {
                         active={included.includes(g.id)}
                     />
                 ))}
+            </div>
         </Styled>
     )
 }
