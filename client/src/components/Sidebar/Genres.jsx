@@ -14,19 +14,12 @@ const Checkbox = styled.span`
             filter: grayscale();
             text-decoration: line-through;
         `}
-
-    .cont {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
 `
 
 const Styled = styled.span`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 `
 
 export const Genres = () => {

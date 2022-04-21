@@ -27,28 +27,36 @@ const Styled = styled.div`
         }
 
         .title {
+            display: flex;
+            align-items: baseline;
             position: absolute;
             bottom: 0%;
             width: 100%;
             z-index: 2;
 
             padding: 2rem;
-            font-size: 3rem;
 
             background: linear-gradient(
                 transparent,
                 ${theme.bg_medium}88 3rem,
                 ${theme.bg_medium}
             );
+
+            .name {
+                font-size: 3rem;
+            }
+
+            .info {
+                display: flex;
+                padding: 1rem;
+                gap: 1rem;
+            }
         }
     }
 
     .body {
-        display: grid;
-        grid-template-areas:
-            "desc info"
-            "desc genres";
-        grid-template-columns: 1fr auto;
+        display: flex;
+        /* grid-template-columns: 1fr auto; */
         justify-content: center;
 
         grid-column-gap: 2rem;
@@ -59,16 +67,7 @@ const Styled = styled.div`
             font-size: 2rem;
         }
 
-        .info {
-            grid-area: info;
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-            gap: 1rem;
-        }
-
         .genres {
-            grid-area: genres;
             display: flex;
             flex-direction: column;
 
@@ -77,8 +76,15 @@ const Styled = styled.div`
         }
 
         .desc {
-            grid-area: desc;
             max-width: 800px;
+        }
+
+        .images {
+            display: grid;
+
+            img {
+                max-width: 20vw;
+            }
         }
     }
 `
@@ -87,6 +93,7 @@ export const Detail = () => {
     const { id } = useParams()
 
     const detail = useSelector((state) => state.root.detail)
+    const image = detail.background_image || cover
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -97,16 +104,41 @@ export const Detail = () => {
         return <Message>Loading</Message>
 
     return (
-        <Styled img={detail.background_image || cover}>
+        <Styled img={image || cover}>
             <div className="header">
-                <span className="title">{detail.name}</span>
-                <img src={detail.background_image || cover} alt="cover" />
+                <span className="title">
+                    <span className="name">{detail.name}</span>
+                    <div className="info">
+                        <div className="rating">Rating: {detail.rating}/5</div>
+                        <div className="released">
+                            Released: {detail.released}
+                        </div>
+                    </div>
+                </span>
+                <img src={image || cover} alt="cover" />
             </div>
 
             <div className="body">
-                <div className="info">
-                    <div className="rating">Rating: {detail.rating}/5</div>
-                    <div className="released">Released: {detail.released}</div>
+                <div className="images">
+                    <img src={image} alt="cover" />
+                    {detail.background_image_additional && (
+                        <img
+                            src={detail.background_image_additional}
+                            alt="cover"
+                        />
+                    )}
+                    {detail.short_screenshots?.map((s) => (
+                        <img src={s.image} alt="screenshot" />
+                    ))}
+                </div>
+
+                <div className="desc">
+                    <span className="title">Synopsis</span>
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: detail.desc || detail.description
+                        }}
+                    />
                 </div>
 
                 <div className="genres">
@@ -118,15 +150,6 @@ export const Detail = () => {
                             name={g.name}
                         />
                     ))}
-                </div>
-
-                <div className="desc">
-                    <span className="title">Synopsis</span>
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: detail.desc || detail.description
-                        }}
-                    />
                 </div>
             </div>
         </Styled>

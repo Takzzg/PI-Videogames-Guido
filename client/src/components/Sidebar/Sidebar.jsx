@@ -9,12 +9,12 @@ import { Sort } from "./Sort.jsx"
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     overflow-y: auto;
 
     .divider {
         min-height: 5px;
         background-color: ${theme.bg_light};
+        margin: 1rem 0;
     }
 
     .title {

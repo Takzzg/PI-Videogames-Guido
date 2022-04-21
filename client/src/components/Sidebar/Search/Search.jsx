@@ -43,6 +43,9 @@ export const Search = () => {
                         placeholder="The Legend of Zelda"
                         value={name}
                         onChange={(e) => dispatch(setName(e.target.value))}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") dispatch(setGames(name))
+                        }}
                     />
                     <button onClick={() => dispatch(setGames(name))}>Go</button>
                 </div>
