@@ -1,7 +1,6 @@
-import { Home } from "./Home/index.jsx"
-import { Landing } from "./Landing/index.jsx"
-import { Create } from "./Create/index.jsx"
-import { Detail } from "./Detail/index.jsx"
-import { Test } from "./Test/Test.jsx"
+import { Home } from "./Home.jsx"
+import { Landing } from "./Landing.jsx"
+import { Create } from "./Create.jsx"
+import { Detail } from "./Detail.jsx"
 
-export { Home, Landing, Detail, Create, Test }
+export { Home, Landing, Detail, Create }

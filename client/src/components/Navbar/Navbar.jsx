@@ -14,7 +14,6 @@ export const Navbar = () => {
             <Navlink title={"Landing"} url={"/"} />
             <Navlink title={"Home"} url={"/home"} />
             <Navlink title={"Create"} url={"/create"} />
-            <Navlink title={"test"} url={"/test"} />
         </Styled>
     )
 }

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 
-import { Create, Detail, Home, Landing, Test } from "./pages"
+import { Create, Detail, Home, Landing } from "./pages"
 import { fetchGames, fetchGenres } from "./redux/actions/async"
 import styled from "styled-components"
 import { Navbar } from "./components"
@@ -22,7 +22,8 @@ const Styled = styled.div`
     scrollbar-color: ${theme.bg_light} ${theme.bg_dark};
 
     input,
-    button {
+    button,
+    textarea {
         background-color: ${theme.bg_light};
         color: white;
         border: none;
@@ -37,6 +38,10 @@ const Styled = styled.div`
 
     button {
         cursor: pointer;
+    }
+
+    textarea {
+        resize: none;
     }
 `
 
@@ -57,7 +62,6 @@ function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/detail/:id" element={<Detail />} />
                     <Route path="/create" element={<Create />} />
-                    <Route path="/test" element={<Test />} />
                 </Routes>
             </BrowserRouter>
         </Styled>

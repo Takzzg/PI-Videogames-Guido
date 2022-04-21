@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { theme } from "../../assets/theme.js"
 
-import { Genres } from "./Genres.jsx"
+import { GenresFilter } from "../Genres/GenresFilter.jsx"
 import { Search } from "./Search/Search.jsx"
 import { Sort } from "./Sort.jsx"
 
@@ -30,7 +30,7 @@ export const Sidebar = () => {
             <div className="divider"></div>
             <Sort />
             <div className="divider"></div>
-            <Genres />
+            <GenresFilter />
         </Styled>
     )
 }

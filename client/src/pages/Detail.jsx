@@ -3,61 +3,21 @@ import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 
-import { fetchDetail } from "../../redux/actions/async"
-import cover from "../../assets/cover.jpg"
-import { theme } from "../../assets/theme"
-import { Genre, Message } from "../../components"
+import { fetchDetail } from "../redux/actions/async"
+import cover from "../assets/cover.jpg"
+import { GameHeader, Genre, Message } from "../components"
 
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     overflow: auto;
 
-    .header {
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-        max-height: 80vh;
-        min-height: 50vh;
-
-        img {
-            min-height: 100%;
-            width: 100%;
-        }
-
-        .title {
-            display: flex;
-            align-items: baseline;
-            position: absolute;
-            bottom: 0%;
-            width: 100%;
-            z-index: 2;
-
-            padding: 2rem;
-
-            background: linear-gradient(
-                transparent,
-                ${theme.bg_medium}88 3rem,
-                ${theme.bg_medium}
-            );
-
-            .name {
-                font-size: 3rem;
-            }
-
-            .info {
-                display: flex;
-                padding: 1rem;
-                gap: 1rem;
-            }
-        }
-    }
-
     .body {
-        display: flex;
-        /* grid-template-columns: 1fr auto; */
-        justify-content: center;
+        /* width: 100%; */
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        /* justify-content: center; */
 
         grid-column-gap: 2rem;
         padding: 1rem;
@@ -104,19 +64,13 @@ export const Detail = () => {
         return <Message>Loading</Message>
 
     return (
-        <Styled img={image || cover}>
-            <div className="header">
-                <span className="title">
-                    <span className="name">{detail.name}</span>
-                    <div className="info">
-                        <div className="rating">Rating: {detail.rating}/5</div>
-                        <div className="released">
-                            Released: {detail.released}
-                        </div>
-                    </div>
-                </span>
-                <img src={image || cover} alt="cover" />
-            </div>
+        <Styled img={image}>
+            <GameHeader
+                name={detail.name}
+                rating={detail.rating}
+                released={detail.released}
+                image={image}
+            />
 
             <div className="body">
                 <div className="images">
@@ -144,11 +98,7 @@ export const Detail = () => {
                 <div className="genres">
                     <span className="title">Genres</span>
                     {detail.genres?.map((g) => (
-                        <Genre
-                            key={g.id}
-                            image={g.image_background || g.image}
-                            name={g.name}
-                        />
+                        <Genre key={g.id} genre={g} />
                     ))}
                 </div>
             </div>

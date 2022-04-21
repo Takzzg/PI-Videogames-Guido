@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { Games, Sidebar } from "../../components"
+import { Games, Sidebar } from "../components"
 
 const Styled = styled.div`
     display: grid;

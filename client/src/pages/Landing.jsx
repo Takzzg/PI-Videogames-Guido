@@ -1,7 +1,9 @@
+import React from "react"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-import bg from "../../assets/landing.jpg"
-import { theme } from "../../assets/theme"
+import bg from "../assets/landing.jpg"
+import { theme } from "../assets/theme"
 
 const Styled = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -63,4 +65,24 @@ const Styled = styled.div`
     }
 `
 
-export { Styled }
+export const Landing = () => {
+    return (
+        <Styled>
+            <div className="main">
+                <div>PI VideoGames</div>
+                <Link to={"/home"}>Home</Link>
+            </div>
+
+            <div className="footer">
+                <a
+                    className="btn"
+                    href="https://rawg.io/apidocs"
+                    target={"_blank"}
+                    rel="noreferrer"
+                >
+                    powered by: R A W G
+                </a>
+            </div>
+        </Styled>
+    )
+}
