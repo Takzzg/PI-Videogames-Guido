@@ -10,14 +10,11 @@ import { GameHeader, Genre, Message } from "../components"
 const Styled = styled.div`
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     overflow: auto;
 
     .body {
-        /* width: 100%; */
         display: grid;
-        grid-template-columns: auto 1fr auto;
-        /* justify-content: center; */
+        grid-template-columns: auto 1fr auto auto;
 
         grid-column-gap: 2rem;
         padding: 1rem;
@@ -27,12 +24,13 @@ const Styled = styled.div`
             font-size: 2rem;
         }
 
-        .genres {
+        .genres,
+        .platforms {
             display: flex;
             flex-direction: column;
 
             gap: 1rem;
-            min-width: 20rem;
+            min-width: 15rem;
         }
 
         .desc {
@@ -99,6 +97,13 @@ export const Detail = () => {
                     <span className="title">Genres</span>
                     {detail.genres?.map((g) => (
                         <Genre key={g.id} genre={g} />
+                    ))}
+                </div>
+
+                <div className="platforms">
+                    <span className="title">Platforms</span>
+                    {detail.platforms?.map((p) => (
+                        <Genre key={p.platform.id} genre={p.platform} />
                     ))}
                 </div>
             </div>

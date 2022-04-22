@@ -19,7 +19,8 @@ const initialState = {
         filteredGames: [],
         searchResults: [],
         allGenres: [],
-        detail: {}
+        detail: {},
+        allPlatforms: []
     },
     sidebar: {
         name: "",
@@ -75,9 +76,21 @@ const reducers = (state = initialState, action) => {
         if (newState.sidebar.sortParams.dir === "desc")
             newFilteredGames = newFilteredGames.reverse()
 
-        newState.root.filteredGames = [...newFilteredGames]
+        newState.root = {
+            ...newState.root,
+            filteredGames: [...newFilteredGames]
+        }
         setMaxPage()
         setPage(0)
+    }
+
+    const ripPlatforms = () => {
+        const platforms = []
+        newState.root.allGames.forEach((g) =>
+            g.platforms?.forEach((p) => platforms.push(p.platform))
+        )
+        const uniqueP = [...new Map(platforms.map((v) => [v.id, v])).values()]
+        newState.root = { ...newState.root, allPlatforms: uniqueP }
     }
 
     const setPage = (n) => {
@@ -93,13 +106,14 @@ const reducers = (state = initialState, action) => {
 
     const setMaxPage = () => {
         newState.sidebar.pagination.max = Math.floor(
-            newState.root.filteredGames.length / 15
+            (newState.root.filteredGames.length - 1) / 15
         )
     }
 
     switch (action.type) {
         case FETCH_GAMES:
-            newState.root.allGames = action.payload
+            newState.root = { ...newState.root, allGames: action.payload }
+            ripPlatforms()
             filterGames()
             break
 

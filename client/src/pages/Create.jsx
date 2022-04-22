@@ -8,9 +8,9 @@ import { GameHeader, Genres } from "../components"
 const Styled = styled.div`
     display: grid;
     grid-template-areas:
-        "header  genres"
-        "desc    genres"
-        "buttons genres";
+        "platforms header  genres"
+        "platforms desc    genres"
+        "platforms buttons genres";
     overflow: auto;
 
     .desc {
@@ -31,6 +31,10 @@ const Styled = styled.div`
         display: flex;
         gap: 1rem;
         padding: 1rem;
+    }
+
+    .platforms {
+        grid-area: platforms;
     }
 `
 
@@ -112,6 +116,8 @@ export const Create = () => {
                     onClick={handleGenreToggle}
                 />
             </div>
+
+            <div className="platforms"></div>
 
             <div className="buttons">
                 <button>Reset</button>

@@ -1,4 +1,5 @@
 const { Router } = require("express")
+const { Op } = require("sequelize")
 
 const { Videogame, Genre } = require("../db")
 const { apiUrl, fetch } = require("./utils")
@@ -10,9 +11,16 @@ router.get("/", async (req, res) => {
 
     try {
         if (name) {
-            let games = await fetch(`${apiUrl}&search=${name}`)
-            let first15 = games.slice(0, 15)
-            return res.send(first15)
+            let api = await fetch(`${apiUrl}&search=${name}`)
+            let results = api.slice(0, 15)
+
+            let pg = await Videogame.findAll({
+                where: { name: { [Op.iLike]: name } },
+                include: Genre
+            })
+
+            let games = [...pg, ...results]
+            return res.send(games)
         }
 
         let api = []
