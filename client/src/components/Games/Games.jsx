@@ -20,11 +20,13 @@ const Styled = styled.div`
 const Content = ({ games, pagination, dispatch }) => {
     return (
         <Styled>
-            <Pagination
-                dispatch={dispatch}
-                page={pagination.current}
-                max={pagination.max}
-            />
+            {!!pagination.max && (
+                <Pagination
+                    dispatch={dispatch}
+                    page={pagination.current}
+                    max={pagination.max}
+                />
+            )}
             <div className="cardsCont">
                 {games
                     .slice(
@@ -35,11 +37,13 @@ const Content = ({ games, pagination, dispatch }) => {
                         <Card key={g.id} game={g} />
                     ))}
             </div>
-            <Pagination
-                dispatch={dispatch}
-                page={pagination.current}
-                max={pagination.max}
-            />
+            {!!pagination.max && (
+                <Pagination
+                    dispatch={dispatch}
+                    page={pagination.current}
+                    max={pagination.max}
+                />
+            )}
         </Styled>
     )
 }

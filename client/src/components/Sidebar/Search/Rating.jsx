@@ -18,10 +18,6 @@ export const Rating = () => {
         dispatch(setRating({ ...rating, threshold: newThreshold }))
     }
 
-    const toggleIgnore = () => {
-        dispatch(setRating({ ...rating, ignore: !rating.ignore }))
-    }
-
     const changeValue = (e) => {
         const btnValue = e.target.value
         let newRating = rating.value
@@ -49,8 +45,6 @@ export const Rating = () => {
             <button disabled={rating.ignore} onClick={changeValue} value={-1}>
                 -
             </button>
-
-            <button onClick={toggleIgnore}>All</button>
         </Styled>
     )
 }

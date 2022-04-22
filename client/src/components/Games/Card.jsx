@@ -88,9 +88,6 @@ export const Card = ({ game }) => {
 
             <div className="body">
                 <span className="name">{name}</span>
-
-                {desc && <span className="desc">{desc}</span>}
-
                 <span className="released">Released on: {released}</span>
             </div>
         </Styled>

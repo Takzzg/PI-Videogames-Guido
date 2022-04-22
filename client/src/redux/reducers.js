@@ -36,10 +36,20 @@ const reducers = (state = initialState, action) => {
     let newState = { ...state }
 
     const filterGames = () => {
-        let newFilteredGames =
-            newState.root.searchResults.length > 0
-                ? [...newState.root.searchResults]
-                : [...newState.root.allGames]
+        let newFilteredGames = newState.sidebar.name
+            ? [
+                  ...newState.root.searchResults,
+                  ...newState.root.allGames.filter((g) =>
+                      g.name
+                          .toLowerCase()
+                          .includes(newState.sidebar.name.toLowerCase())
+                  )
+              ]
+            : [...newState.root.allGames]
+
+        newFilteredGames = [
+            ...new Map(newFilteredGames.map((game) => [game.id, game])).values()
+        ]
 
         newFilteredGames = newFilteredGames.sort((a, b) => {
             let propA = a[newState.sidebar.sortParams.prop]
@@ -61,9 +71,8 @@ const reducers = (state = initialState, action) => {
                 game.genres.forEach((genre) => {
                     if (
                         newState.sidebar.includedGenres.indexOf(genre.id) !== -1
-                    ) {
+                    )
                         found = true
-                    }
                 })
                 if (found) genresMatch.push(game)
             })
@@ -84,6 +93,7 @@ const reducers = (state = initialState, action) => {
             ...newState.root,
             filteredGames: [...newFilteredGames]
         }
+
         setMaxPage()
         setPage(0)
     }
