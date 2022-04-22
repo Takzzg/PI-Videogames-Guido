@@ -50,7 +50,11 @@ const reducers = (state = initialState, action) => {
             return 0
         })
 
-        if (newState.sidebar.includedGenres?.length > 0) {
+        if (
+            newState.sidebar.includedGenres?.length &&
+            newState.sidebar.includedGenres?.length !==
+                newState.root.allGenres.length
+        ) {
             let genresMatch = []
             newFilteredGames.forEach((game) => {
                 let found = false
@@ -89,7 +93,7 @@ const reducers = (state = initialState, action) => {
         newState.root.allGames.forEach((g) =>
             g.platforms?.forEach((p) => platforms.push(p.platform))
         )
-        const uniqueP = [...new Map(platforms.map((v) => [v.id, v])).values()]
+        const uniqueP = [...new Map(platforms.map((p) => [p.id, p])).values()]
         newState.root = { ...newState.root, allPlatforms: uniqueP }
     }
 

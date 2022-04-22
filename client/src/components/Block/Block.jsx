@@ -28,16 +28,16 @@ const Styled = styled.div`
         `}
 `
 
-export const Genre = ({ genre, active, onClick }) => {
+export const Block = ({ data, active, onClick }) => {
     return (
         <Styled
             toggleable={active !== undefined}
             active={active}
             onClick={onClick}
-            id={genre.id}
-            image={genre.image || genre.image_background}
+            id={data.id}
+            image={data.image || data.image_background}
         >
-            {genre.name}
+            {data.name}
         </Styled>
     )
 }

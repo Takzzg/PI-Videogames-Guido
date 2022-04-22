@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { theme } from "../../assets/theme.js"
 
-import { GenresFilter } from "../Genres/GenresFilter.jsx"
+import { GenresFilter } from "./GenresFilter.jsx"
 import { Search } from "./Search/Search.jsx"
 import { Sort } from "./Sort.jsx"
 

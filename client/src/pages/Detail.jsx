@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 import { fetchDetail } from "../redux/actions/async"
 import cover from "../assets/cover.jpg"
-import { GameHeader, Genre, Message } from "../components"
+import { GameHeader, Block, Message } from "../components"
 
 const Styled = styled.div`
     display: flex;
@@ -96,14 +96,14 @@ export const Detail = () => {
                 <div className="genres">
                     <span className="title">Genres</span>
                     {detail.genres?.map((g) => (
-                        <Genre key={g.id} genre={g} />
+                        <Block key={g.id} data={g} />
                     ))}
                 </div>
 
                 <div className="platforms">
                     <span className="title">Platforms</span>
                     {detail.platforms?.map((p) => (
-                        <Genre key={p.platform.id} genre={p.platform} />
+                        <Block key={p.platform.id} data={p.platform} />
                     ))}
                 </div>
             </div>

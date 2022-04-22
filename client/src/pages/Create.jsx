@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import styled from "styled-components"
 
 import cover from "../assets/cover.jpg"
-import { GameHeader, Genres } from "../components"
+import { GameHeader, BlockSelect } from "../components"
 
 const Styled = styled.div`
     display: grid;
@@ -11,6 +11,7 @@ const Styled = styled.div`
         "platforms header  genres"
         "platforms desc    genres"
         "platforms buttons genres";
+    grid-template-columns: auto 1fr auto;
     overflow: auto;
 
     .desc {
@@ -20,7 +21,8 @@ const Styled = styled.div`
         flex-direction: column;
     }
 
-    .genres {
+    .genres,
+    .platforms {
         grid-area: genres;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -40,12 +42,14 @@ const Styled = styled.div`
 
 export const Create = () => {
     const genres = useSelector((state) => state.root.allGenres)
+    const platforms = useSelector((state) => state.root.allPlatforms)
 
     const [form, setForm] = useState({
         name: "",
         rating: 2.5,
         desc: "",
         genres: [],
+        platforms: [],
         released: new Date().toLocaleDateString()
     })
 
@@ -53,23 +57,23 @@ export const Create = () => {
         setForm({ ...form, [e.target.id]: e.target.value })
     }
 
-    const toggleAllG = (value) => {
-        if (!value) return setForm({ ...form, genres: [] })
-        const selected = genres.map((g) => g.id.toString())
-        setForm({ ...form, genres: selected })
+    const toggleAll = (cat, value) => {
+        if (!value) return setForm({ ...form, [cat]: [] })
+        let selected = cat === "genres" ? [...genres] : [...platforms]
+        selected = selected.map((item) => item.id)
+        setForm({ ...form, [cat]: selected })
     }
 
-    const handleGenreToggle = (e) => {
-        let id = e.target.id
-        let newGenres = [...form.genres]
+    const handleToggle = (cat, e) => {
+        let id = parseInt(e.target.id)
+        let newArr = [...form[cat]]
 
-        console.log(newGenres.includes(id))
+        console.log(newArr.includes(id))
 
-        if (newGenres.includes(id))
-            newGenres = newGenres.filter((e) => e !== id)
-        else newGenres.push(id)
+        if (newArr.includes(id)) newArr = newArr.filter((e) => e !== id)
+        else newArr.push(id)
 
-        setForm({ ...form, genres: newGenres })
+        setForm({ ...form, [cat]: newArr })
     }
 
     const NameInput = () => (
@@ -110,14 +114,24 @@ export const Create = () => {
             </div>
 
             <div className="genres">
-                <Genres
-                    genres={form.genres}
-                    bulkToggle={toggleAllG}
-                    onClick={handleGenreToggle}
+                <BlockSelect
+                    cat={"genres"}
+                    completeList={genres}
+                    selectedList={form.genres}
+                    bulkToggle={toggleAll}
+                    onClick={handleToggle}
                 />
             </div>
 
-            <div className="platforms"></div>
+            <div className="platforms">
+                <BlockSelect
+                    cat={"platforms"}
+                    completeList={platforms}
+                    selectedList={form.platforms}
+                    bulkToggle={toggleAll}
+                    onClick={handleToggle}
+                />
+            </div>
 
             <div className="buttons">
                 <button>Reset</button>

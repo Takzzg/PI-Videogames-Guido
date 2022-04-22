@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 
 import { setIncludedGenres } from "../../redux/actions/sync"
-import { Genres } from "./Genres"
+import { BlockSelect } from "../Block/BlockSelect"
 
 const Styled = styled.span`
     display: flex;
@@ -15,7 +15,7 @@ export const GenresFilter = () => {
     const included = useSelector((state) => state.sidebar.includedGenres)
     const dispatch = useDispatch()
 
-    const toggleGenre = (e) => {
+    const toggleGenre = (cat, e) => {
         let id = parseInt(e.target.id)
         let newIncluded = [...included]
 
@@ -26,7 +26,7 @@ export const GenresFilter = () => {
         dispatch(setIncludedGenres(newIncluded))
     }
 
-    const toggleAllG = (value) => {
+    const toggleAllG = (cat, value) => {
         if (!value) return dispatch(setIncludedGenres([]))
         const newIncluded = allGenres.map((g) => g.id)
         dispatch(setIncludedGenres(newIncluded))
@@ -35,8 +35,9 @@ export const GenresFilter = () => {
     return (
         <Styled>
             <span className="title">Filter by Genre</span>
-            <Genres
-                genres={included}
+            <BlockSelect
+                completeList={allGenres}
+                selectedList={included}
                 bulkToggle={toggleAllG}
                 onClick={toggleGenre}
             />
