@@ -28,13 +28,18 @@ router.get("/", async (req, res) => {
 
         for (let i = 0; i < 3; i++)
             urls.push(
-                fetch(`${apiUrl}&page=${i + 1}&page_size=40`).then((r) => {
+                fetch(
+                    `${apiUrl}&page=${
+                        Math.floor(Math.random() * 50) + i + 1
+                    }&page_size=40`
+                ).then((r) => {
                     api.push(...r)
                 })
             )
         await Promise.all(urls)
 
         let pg = await Videogame.findAll({ include: Genre })
+        pg = pg.map((vg) => vg.dataValues)
 
         let games = [...pg, ...api]
 

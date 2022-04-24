@@ -4,6 +4,7 @@ import {
     FETCH_GAMES,
     FETCH_GENRES,
     FILTER_GAMES,
+    POST_GAME,
     SET_GAMES,
     SET_INCLUDED_G,
     SET_MAX_PAGE,
@@ -100,9 +101,10 @@ const reducers = (state = initialState, action) => {
 
     const ripPlatforms = () => {
         const platforms = []
-        newState.root.allGames.forEach((g) =>
-            g.platforms?.forEach((p) => platforms.push(p.platform))
-        )
+
+        newState.root.allGames.forEach((g) => {
+            return g.platforms?.forEach((p) => platforms.push(p.platform || p))
+        })
         const uniqueP = [...new Map(platforms.map((p) => [p.id, p])).values()]
         newState.root = { ...newState.root, allPlatforms: uniqueP }
     }
@@ -177,6 +179,11 @@ const reducers = (state = initialState, action) => {
 
         case SET_GAMES:
             newState.root.searchResults = action.payload
+            filterGames()
+            break
+
+        case POST_GAME:
+            newState.root.allGames = [...newState.root.allGames, action.payload]
             filterGames()
             break
 

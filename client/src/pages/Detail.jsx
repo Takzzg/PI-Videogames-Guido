@@ -93,19 +93,26 @@ export const Detail = () => {
                     />
                 </div>
 
-                <div className="genres">
-                    <span className="title">Genres</span>
-                    {detail.genres?.map((g) => (
-                        <Block key={g.id} data={g} />
-                    ))}
-                </div>
+                {detail.genres && (
+                    <div className="genres">
+                        <span className="title">Genres</span>
+                        {detail.genres.map((g) => (
+                            <Block key={g.id} data={g} />
+                        ))}
+                    </div>
+                )}
 
-                <div className="platforms">
-                    <span className="title">Platforms</span>
-                    {detail.platforms?.map((p) => (
-                        <Block key={p.platform.id} data={p.platform} />
-                    ))}
-                </div>
+                {detail.platforms && (
+                    <div className="platforms">
+                        <span className="title">Platforms</span>
+                        {detail.platforms.map((p) => (
+                            <Block
+                                key={p.platform?.id || p.id}
+                                data={p.platform || p}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </Styled>
     )

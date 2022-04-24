@@ -1,9 +1,11 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import cover from "../assets/cover.jpg"
 import { GameHeader, BlockSelect } from "../components"
+import { postGame } from "../redux/actions/async"
 
 const Styled = styled.div`
     display: grid;
@@ -44,6 +46,9 @@ export const Create = () => {
     const genres = useSelector((state) => state.root.allGenres)
     const platforms = useSelector((state) => state.root.allPlatforms)
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [form, setForm] = useState({
         name: "",
         rating: 2.5,
@@ -53,8 +58,28 @@ export const Create = () => {
         released: new Date().toLocaleDateString()
     })
 
+    const resetForm = () => {
+        setForm({
+            name: "",
+            rating: 2.5,
+            desc: "",
+            genres: [],
+            platforms: [],
+            released: new Date().toLocaleDateString()
+        })
+    }
+
     const handleSetForm = (e) => {
         setForm({ ...form, [e.target.id]: e.target.value })
+    }
+
+    const submitForm = () => {
+        const game = { ...form }
+        game.platforms = game.platforms.map((p) =>
+            platforms.find((plat) => plat.id === p)
+        )
+        dispatch(postGame(game))
+        navigate("/home")
     }
 
     const toggleAll = (cat, value) => {
@@ -68,49 +93,33 @@ export const Create = () => {
         let id = parseInt(e.target.id)
         let newArr = [...form[cat]]
 
-        console.log(newArr.includes(id))
-
         if (newArr.includes(id)) newArr = newArr.filter((e) => e !== id)
         else newArr.push(id)
 
         setForm({ ...form, [cat]: newArr })
     }
 
-    const NameInput = () => (
-        <>
-            Name:{" "}
-            <input
-                type="text"
-                id="name"
-                value={form.name}
-                onChange={handleSetForm}
-            />
-        </>
-    )
-
-    const RatingInput = () => (
-        <input
-            type="number"
-            step={0.1}
-            id="rating"
-            value={form.rating}
-            onChange={handleSetForm}
-        />
-    )
-
     return (
         <Styled>
             <GameHeader
-                name={<NameInput />}
-                rating={<RatingInput />}
+                name={form.name}
+                rating={form.rating}
                 selected
                 released={form.released}
                 image={cover}
+                handleChange={handleSetForm}
             />
 
             <div className="desc">
                 Description
-                <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+                <textarea
+                    name="desc"
+                    id="desc"
+                    cols="30"
+                    rows="10"
+                    value={form.desc}
+                    onChange={handleSetForm}
+                />
             </div>
 
             <div className="genres">
@@ -134,8 +143,8 @@ export const Create = () => {
             </div>
 
             <div className="buttons">
-                <button>Reset</button>
-                <button>Save</button>
+                <button onClick={resetForm}>Reset</button>
+                <button onClick={submitForm}>Save</button>
             </div>
         </Styled>
     )

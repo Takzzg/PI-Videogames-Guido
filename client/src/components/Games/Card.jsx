@@ -69,7 +69,7 @@ const Styled = styled(Link)`
 `
 
 export const Card = ({ game }) => {
-    const { id, name, rating, desc, background_image, released, genres } = game
+    const { id, name, rating, background_image, released, genres } = game
     const image = background_image || cover
 
     return (

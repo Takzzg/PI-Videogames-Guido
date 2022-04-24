@@ -5,7 +5,8 @@ import {
     FETCH_DETAIL,
     FETCH_GENRES,
     ERROR,
-    SET_GAMES
+    SET_GAMES,
+    POST_GAME
 } from "./types"
 
 const baseUrl = "http://localhost:3001"
@@ -32,4 +33,10 @@ export const setGames = (name) => (dispatch) =>
     axios
         .get(`${baseUrl}/videogames/?name=${name}`)
         .then((res) => dispatch({ type: SET_GAMES, payload: res.data }))
+        .catch((err) => ({ type: ERROR, payload: err }))
+
+export const postGame = (game) => (dispatch) =>
+    axios
+        .post(`${baseUrl}/videogame`, { ...game })
+        .then((res) => dispatch({ type: POST_GAME, payload: res.data }))
         .catch((err) => ({ type: ERROR, payload: err }))

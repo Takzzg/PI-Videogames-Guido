@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
                 type: DataTypes.DECIMAL
             },
             platforms: {
-                type: DataTypes.ARRAY(DataTypes.UUID)
+                type: DataTypes.ARRAY(DataTypes.JSONB)
             }
         },
         { timestamps: false }
