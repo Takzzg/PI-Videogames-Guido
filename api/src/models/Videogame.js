@@ -23,10 +23,12 @@ module.exports = (sequelize) => {
                 defaultValue: DataTypes.NOW
             },
             rating: {
-                type: DataTypes.DECIMAL
+                type: DataTypes.DECIMAL,
+                defaultValue: 2.5
             },
             platforms: {
-                type: DataTypes.ARRAY(DataTypes.JSONB)
+                type: DataTypes.ARRAY(DataTypes.JSONB),
+                allowNull: false
             }
         },
         { timestamps: false }

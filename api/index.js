@@ -22,6 +22,14 @@ const axios = require("axios").default
 
 const server = require("./src/app.js")
 const { conn, Videogame, Genre } = require("./src/db.js")
+const {
+    hardcoded_1,
+    hardcoded_2,
+    hardcoded_3,
+    genres_1,
+    genres_2,
+    genres_3
+} = require("./utils.js")
 const { API_BASE_URL, RAWG_KEY } = process.env
 
 const apiUrl = `${API_BASE_URL}/genres?key=${RAWG_KEY}`
@@ -42,23 +50,20 @@ const saveGenresToDB = async () => {
     await Genre.bulkCreate(genres)
 }
 
-const hardcodedGame = async () => {
-    // search a few genres
-    let action = await Genre.findOne({ where: { name: "Action" } })
-    let multiplayer = await Genre.findOne({
-        where: { name: "Massively Multiplayer" }
-    })
-    let simulation = await Genre.findOne({ where: { name: "Simulation" } })
+const hardcodedGames = async () => {
+    try {
+        // create videogames
+        let hvg1 = await Videogame.create(hardcoded_1)
+        let hvg2 = await Videogame.create(hardcoded_2)
+        let hvg3 = await Videogame.create(hardcoded_3)
 
-    // create videogame
-    let minecraft = await Videogame.create({
-        name: "Minecraft",
-        desc: "It's just Minecraft, but on postgres",
-        rating: 5
-    })
-
-    // add relationship
-    await minecraft.setGenres([action, multiplayer, simulation])
+        // add relationships
+        await hvg1.setGenres(hardcoded_1.genres)
+        await hvg2.setGenres(hardcoded_2.genres)
+        await hvg3.setGenres(hardcoded_3.genres)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 conn.sync({ force: true }).then(async () => {
@@ -66,7 +71,7 @@ conn.sync({ force: true }).then(async () => {
     await saveGenresToDB()
 
     //hardcoded game for testing
-    await hardcodedGame()
+    await hardcodedGames()
 
     server.listen(3001, () => {
         console.log("Server listening on localhost:3001")

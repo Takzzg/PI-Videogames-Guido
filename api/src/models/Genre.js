@@ -13,12 +13,7 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            image: {
-                type: DataTypes.STRING
-            },
-            count: {
-                type: DataTypes.INTEGER
-            }
+            image: DataTypes.STRING
         },
         { timestamps: false }
     )
