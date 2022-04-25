@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -7,20 +7,30 @@ import cover from "../assets/cover.jpg"
 import { GameHeader, BlockSelect } from "../components"
 import { postGame } from "../redux/actions/async"
 
+const Error = styled.span`
+    padding: 0.25rem;
+    background-color: red;
+    color: white;
+`
+
 const Styled = styled.div`
+    box-sizing: border-box;
     display: grid;
     grid-template-areas:
-        "platforms header  genres"
-        "platforms desc    genres"
-        "platforms buttons genres";
+        "platforms header genres"
+        "platforms desc   genres"
+        "platforms footer genres";
     grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto;
     overflow: auto;
 
     .desc {
         grid-area: desc;
-
         display: flex;
         flex-direction: column;
+        .title {
+            font-size: 2rem;
+        }
     }
 
     .genres,
@@ -30,15 +40,29 @@ const Styled = styled.div`
         grid-template-columns: 1fr 1fr;
     }
 
-    .buttons {
-        grid-area: buttons;
-        display: flex;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
     .platforms {
         grid-area: platforms;
+    }
+
+    .footer {
+        grid-area: footer;
+        display: flex;
+
+        .buttons {
+            grid-area: buttons;
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .errors {
+            grid-area: errors;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            align-items: center;
+        }
     }
 `
 
@@ -57,6 +81,7 @@ export const Create = () => {
         platforms: [],
         released: new Date().toLocaleDateString()
     })
+    const [errors, setErrors] = useState([])
 
     const resetForm = () => {
         setForm({
@@ -99,6 +124,32 @@ export const Create = () => {
         setForm({ ...form, [cat]: newArr })
     }
 
+    useEffect(() => {
+        const checkErrors = () => {
+            let detected = []
+
+            if (!form.name) detected.push("Must have a name")
+            else if (form.name?.length < 3)
+                detected.push("Name must be at least 3 characters long")
+
+            if (form.rating > 5) detected.push("Rating can't be over 5")
+            if (form.rating < 0) detected.push("Rating can't be below 0")
+
+            if (!form.desc) detected.push("Must have a description")
+            else if (form.desc?.split(" ").length < 10)
+                detected.push("Description must be at least 10 words long")
+
+            if (!form.genres?.length)
+                detected.push("Must belong to at least one genre")
+            if (!form.platforms?.length)
+                detected.push("Must include at least one platform")
+
+            setErrors(detected)
+        }
+
+        checkErrors()
+    }, [form])
+
     return (
         <Styled>
             <GameHeader
@@ -111,7 +162,7 @@ export const Create = () => {
             />
 
             <div className="desc">
-                Description
+                <span className="title">Description</span>
                 <textarea
                     name="desc"
                     id="desc"
@@ -142,9 +193,18 @@ export const Create = () => {
                 />
             </div>
 
-            <div className="buttons">
-                <button onClick={resetForm}>Reset</button>
-                <button onClick={submitForm}>Save</button>
+            <div className="footer">
+                <div className="buttons">
+                    <button onClick={resetForm}>Reset</button>
+                    <button onClick={submitForm} disabled={errors.length}>
+                        Save
+                    </button>
+                </div>
+                <div className="errors">
+                    {errors.map((e) => (
+                        <Error key={e}>{e}</Error>
+                    ))}
+                </div>
             </div>
         </Styled>
     )

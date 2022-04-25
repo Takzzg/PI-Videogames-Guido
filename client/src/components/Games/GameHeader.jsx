@@ -9,6 +9,7 @@ const Styled = styled.div`
     overflow: hidden;
     max-height: 80vh;
     min-height: 50vh;
+    font-size: 1.5rem;
 
     img {
         min-height: 100%;
@@ -35,19 +36,24 @@ const Styled = styled.div`
 
         .name {
             display: flex;
-            font-size: 3rem;
+            font-size: 2rem;
             line-height: 1rem;
         }
 
         .info {
             display: flex;
-            gap: 1rem;
-            align-items: flex-end;
+            gap: 2rem;
+            align-items: flex-start;
 
             .rating {
                 display: flex;
                 align-items: center;
+                flex-direction: column;
                 gap: 1rem;
+
+                input {
+                    min-width: 10rem;
+                }
             }
         }
     }
@@ -68,17 +74,10 @@ const Input = styled.div`
 
     input[type="range"] {
         display: block;
-        appearance: none;
-        background: linear-gradient(to right, red 0%, green 100%);
         height: 10px;
         padding: 0;
         border-radius: 10px;
-
-        &::-webkit-slider-thumb {
-            appearance: none;
-            height: 50px;
-            background: red;
-        }
+        accent-color: gray;
     }
 `
 
@@ -121,17 +120,21 @@ export const GameHeader = ({ name, rating, released, image, handleChange }) => {
                 </span>
 
                 <div className="info">
-                    <div className="rating">
-                        Rating: {rating}/5 <br />
-                        {handleChange && (
-                            <RatingInput
-                                handleChange={handleChange}
-                                rating={rating}
-                            />
-                        )}
-                    </div>
+                    {rating && (
+                        <div className="rating">
+                            Rating: {rating}/5 <br />
+                            {handleChange && (
+                                <RatingInput
+                                    handleChange={handleChange}
+                                    rating={rating}
+                                />
+                            )}
+                        </div>
+                    )}
 
-                    <div className="released">Released: {released}</div>
+                    {released && (
+                        <div className="released">Released: {released}</div>
+                    )}
                 </div>
             </span>
             <img src={image || cover} alt="cover" />
