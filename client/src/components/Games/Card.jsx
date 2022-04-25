@@ -64,7 +64,8 @@ const Styled = styled(Link)`
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: 0.25rem;
+        gap: 0.5rem;
+        padding: 0.5rem;
     }
 `
 
@@ -81,7 +82,7 @@ export const Card = ({ game }) => {
 
                 <div className="genres">
                     {genres.map((g) => (
-                        <span key={id + g.id}>{g.name}</span>
+                        <span key={`${g.id}-${id}`}>{g.name}</span>
                     ))}
                 </div>
             </div>

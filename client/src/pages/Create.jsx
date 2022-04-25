@@ -125,29 +125,25 @@ export const Create = () => {
     }
 
     useEffect(() => {
-        const checkErrors = () => {
-            let detected = []
+        let detected = []
 
-            if (!form.name) detected.push("Must have a name")
-            else if (form.name?.length < 3)
-                detected.push("Name must be at least 3 characters long")
+        if (!form.name) detected.push("Must have a name")
+        else if (form.name?.length < 3)
+            detected.push("Name must be at least 3 characters long")
 
-            if (form.rating > 5) detected.push("Rating can't be over 5")
-            if (form.rating < 0) detected.push("Rating can't be below 0")
+        if (form.rating > 5) detected.push("Rating can't be over 5")
+        if (form.rating < 0) detected.push("Rating can't be below 0")
 
-            if (!form.desc) detected.push("Must have a description")
-            else if (form.desc?.split(" ").length < 10)
-                detected.push("Description must be at least 10 words long")
+        if (!form.desc) detected.push("Must have a description")
+        else if (form.desc?.split(" ").length < 10)
+            detected.push("Description must be at least 10 words long")
 
-            if (!form.genres?.length)
-                detected.push("Must belong to at least one genre")
-            if (!form.platforms?.length)
-                detected.push("Must include at least one platform")
+        if (!form.genres?.length)
+            detected.push("Must belong to at least one genre")
+        if (!form.platforms?.length)
+            detected.push("Must include at least one platform")
 
-            setErrors(detected)
-        }
-
-        checkErrors()
+        setErrors(detected)
     }, [form])
 
     return (
