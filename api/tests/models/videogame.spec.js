@@ -1,11 +1,11 @@
 const { Videogame, conn } = require("../../src/db.js")
 const { hardcoded_1, hardcoded_2, hardcoded_3 } = require("../../utils.js")
 
-describe("Videogame model", () => {
+describe.only("Videogame model", () => {
     const baseError = "should throw an error if"
 
-    const dbCreateF = (game, msg, title) => {
-        it(title ? title : `${baseError} ${msg}`, (done) => {
+    const dbCreateF = (game, msg) => {
+        it(msg, (done) => {
             Videogame.create(game)
                 .then(() =>
                     done(new Error(`Should not create a videogame if ${msg}`))
@@ -15,7 +15,7 @@ describe("Videogame model", () => {
     }
 
     const alterGames = (prop, values) => {
-        values = [null, undefined, true, false, ...values]
+        values = [null, undefined, true, false, NaN, ...values]
         let hardcodedGames = [hardcoded_1, hardcoded_2, hardcoded_3]
         let games = []
 
@@ -35,11 +35,15 @@ describe("Videogame model", () => {
 
     beforeEach(() => Videogame.sync({ force: true }))
 
-    describe("name", () => {
-        alterGames("name", ["AB", 12, { name: "Name" }]).forEach((game) => {
-            let msg = "name is "
+    describe(`${baseError} name is`, () => {
+        const badInputs = ["AB", 12, { name: "Name" }, [], `${`\b\n`}`]
 
-            if (!game.name || typeof game.name === "boolean") msg += game.name
+        alterGames("name", badInputs).forEach((game) => {
+            let msg = ""
+
+            if (game.name === "") msg += "empty string"
+            else if (!game.name || typeof game.name === "boolean")
+                msg += game.name
             else if (typeof game.name !== "string") msg += "not a string"
             else if (game.name.length < 3) msg += "shorter than 3 letters"
 
@@ -47,38 +51,41 @@ describe("Videogame model", () => {
         })
     })
 
-    describe("desc", () => {
-        alterGames("desc", ["1 2 3 4 5 6 7 8 9", true, [123, 123]]).forEach(
-            (game) => {
-                let msg = "desc is "
+    describe(`${baseError} desc is`, () => {
+        const badInputs = ["1 2 3 4 5 6 7 8 9", [123, 123]]
 
-                if (!game.desc || typeof game.desc === "boolean")
-                    msg += game.desc
-                else if (typeof game.desc !== "string") msg += "not a string"
-                else if (game.desc.split(" ").length < 3)
-                    msg += "shorter than 10 words"
+        alterGames("desc", badInputs).forEach((game) => {
+            let msg = ""
 
-                dbCreateF(game, msg)
-            }
-        )
-    })
+            if (game.desc === "") msg += "empty string"
+            else if (!game.desc || typeof game.desc === "boolean")
+                msg += game.desc
+            else if (typeof game.desc !== "string") msg += "not a string"
+            else if (game.desc.split(" ").length < 10)
+                msg += "shorter than 10 words"
 
-    describe("rating", () => {
-        alterGames("rating", [-1, 5.1, 99999999999]).forEach((game) => {
-            let title = `${baseError} rating is ${game.rating}`
-            let msg = `rating is `
-
-            if (!game.rating || typeof game.desc === "boolean")
-                msg += `${game.rating}`
-            else msg += game.rating < 0 ? "below 0" : "above 5"
-
-            dbCreateF(game, msg, title)
+            dbCreateF(game, msg)
         })
     })
 
-    describe("platforms", () => {
-        alterGames("platforms", [true, "asd", 123, []]).forEach((game) => {
-            let msg = "platforms is "
+    describe(`${baseError} rating is`, () => {
+        const badInputs = [-1, 5.1, Math.pow(Math.E, 2), -Math.PI]
+
+        alterGames("rating", badInputs).forEach((game) => {
+            let msg = ""
+
+            if (isNaN(game.rating)) msg += "NaN"
+            else msg += game.rating
+
+            dbCreateF(game, msg)
+        })
+    })
+
+    describe(`${baseError} platforms is`, () => {
+        const badInputs = ["asd", 123, []]
+
+        alterGames("platforms", badInputs).forEach((game) => {
+            let msg = ""
 
             if (!game.platforms || typeof game.platforms === "boolean")
                 msg += game.platforms
