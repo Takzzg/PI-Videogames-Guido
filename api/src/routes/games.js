@@ -2,7 +2,7 @@ const { Router } = require("express")
 const { Op } = require("sequelize")
 
 const { Videogame, Genre } = require("../db")
-const { apiUrl, fetch } = require("./utils")
+const { apiUrl, fetch, HTTPcodes } = require("./utils")
 
 const router = Router()
 
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
             })
 
             let games = [...pg, ...results]
-            return res.send(games)
+            return res.status(HTTPcodes.ok).send(games)
         }
 
         let api = []
@@ -43,9 +43,12 @@ router.get("/", async (req, res) => {
 
         let games = [...pg, ...api]
 
-        res.send(games)
+        if (!games.length)
+            res.status(HTTPcodes.svError).send({ error: "No games found" })
+
+        res.status(HTTPcodes.ok).send(games)
     } catch (error) {
-        res.send(error)
+        res.status(HTTPcodes.svError).send({ error })
     }
 })
 

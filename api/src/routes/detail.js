@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const { detailUrl, fetch } = require("./utils")
+const { detailUrl, fetch, HTTPcodes } = require("./utils")
 
 const { Videogame, Genre } = require("../db")
 
@@ -14,22 +14,29 @@ router.get("/:id", async (req, res) => {
     else data = await fetch(detailUrl(id))
 
     if (!data)
-        return res.status(404).json({ error: `no game with id ${id} found` })
-    res.send(data)
+        return res
+            .status(HTTPcodes.notFound)
+            .json({ error: `no game with id ${id} found` })
+
+    res.status(HTTPcodes.ok).send(data)
 })
 
 router.post("/", async (req, res) => {
     const { name, desc, rating, platforms, genres } = req.body
 
+    if (!name || !desc || !platforms || !genres)
+        res.status(HTTPcodes.badRequest).send({
+            error: "Missing information to post the game"
+        })
+
     try {
         const game = await Videogame.create({ name, desc, rating, platforms })
-        const selectedGenres = genres.map(async (g) => await Genre.findByPk(g))
-        genres && (await game.setGenres(genres))
+        await game.setGenres(genres)
         const db = await Videogame.findByPk(game.id, { include: Genre })
-        res.send(db)
+        res.status(HTTPcodes.created).send(db)
     } catch (error) {
         console.log(error)
-        res.send(error)
+        res.status(HTTPcodes.svError).send({ error })
     }
 })
 
