@@ -1,7 +1,7 @@
 const { Videogame, conn } = require("../../src/db.js")
 const { hardcoded_1, hardcoded_2, hardcoded_3 } = require("../../utils.js")
 
-describe.only("Videogame model", () => {
+describe("Videogame model", () => {
     const baseError = "should throw an error if"
 
     const dbCreateF = (game, msg, title) => {
