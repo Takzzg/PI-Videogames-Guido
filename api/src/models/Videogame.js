@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
                     min: 0,
                     max: 5,
                     isNum(value) {
-                        if (typeof value !== "number")
+                        if (isNaN(value) || typeof value !== "number")
                             throw new Error("Rating must be a number")
                     }
                 },
