@@ -29,7 +29,7 @@ const ExampleDesc = `<h1>HTML Ipsum Presents</h1>
 const hardcoded_1 = {
     name: "Minecraft",
     desc: ExampleDesc,
-    rating: 5,
+    rating: 4.45,
     genres: [59, 51, 3],
     platforms: [
         {
@@ -71,7 +71,7 @@ const hardcoded_1 = {
 const hardcoded_2 = {
     name: "The Legend of Zelda: Postgres Edition",
     desc: ExampleDesc,
-    rating: 3,
+    rating: 3.1,
     genres: [83, 1],
     platforms: [
         {
@@ -113,7 +113,7 @@ const hardcoded_2 = {
 const hardcoded_3 = {
     name: "Slay the Spire",
     desc: ExampleDesc,
-    rating: 5,
+    rating: 4.001,
     genres: [17],
     platforms: [
         {
