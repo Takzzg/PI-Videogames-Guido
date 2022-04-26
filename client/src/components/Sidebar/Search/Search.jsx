@@ -94,7 +94,10 @@ export const Search = () => {
                         name="name"
                         placeholder="The Legend of Zelda"
                         value={name}
-                        onChange={(e) => dispatch(setName(e.target.value))}
+                        onChange={(e) => {
+                            dispatch(setName(e.target.value))
+                            if (e.target.value === "") dispatch(filterGames())
+                        }}
                         onKeyPress={(e) => {
                             if (e.key === "Enter") dispatch(setGames(name))
                         }}

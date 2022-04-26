@@ -112,7 +112,7 @@ export const GameHeader = ({ name, rating, released, image, handleChange }) => {
         <Styled>
             <span className="title">
                 <span className="name">
-                    {handleChange ? (
+                    {!!handleChange ? (
                         <NameInput handleChange={handleChange} name={name} />
                     ) : (
                         name
@@ -120,7 +120,7 @@ export const GameHeader = ({ name, rating, released, image, handleChange }) => {
                 </span>
 
                 <div className="info">
-                    {rating && (
+                    {!!rating && (
                         <div className="rating">
                             Rating: {rating}/5 <br />
                             {handleChange && (
@@ -132,7 +132,7 @@ export const GameHeader = ({ name, rating, released, image, handleChange }) => {
                         </div>
                     )}
 
-                    {released && (
+                    {!!released && (
                         <div className="released">Released: {released}</div>
                     )}
                 </div>

@@ -18,7 +18,6 @@ const Styled = styled.div`
 
     background-color: ${theme.bg_medium};
     color: whitesmoke;
-
     scrollbar-color: ${theme.bg_light} ${theme.bg_dark};
 
     input,
