@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const { expect } = require("chai")
 const session = require("supertest-session")
 
 const app = require("../../src/app.js")
@@ -25,19 +26,26 @@ describe.only("Videogame routes", () => {
     )
 
     describe("GET /videogames", () => {
-        it("should return 200", () => agent.get("/videogames").expect(200))
+        let response
 
-        it("should return an array of games", (done) => {
-            agent.get("/videogames").end((err, res) => {
-                if (err) done(err)
-                if (
-                    !res.body ||
-                    !Array.isArray(res.body) ||
-                    res.body.length < 1
-                )
-                    done(new Error("body was empty"))
-                done()
-            })
+        before(async () => {
+            response = await agent.get("/videogames")
+        })
+
+        it("should return 200", () => {
+            expect(response.status).to.eql(200)
+        })
+
+        it("should return an array", () => {
+            expect(response.body).to.be.a("array")
+        })
+
+        it("array should not be empty", () => {
+            expect(response.body).to.not.be.empty
+        })
+
+        it("should return at least 100 games", () => {
+            expect(response.body).to.have.lengthOf.at.least(100)
         })
     })
 })

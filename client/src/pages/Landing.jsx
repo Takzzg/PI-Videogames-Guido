@@ -49,8 +49,6 @@ const Styled = styled.div`
         align-items: center;
         justify-content: center;
 
-        /* padding: 0.5rem; */
-
         .btn {
             text-decoration: none;
             color: lightgray;
