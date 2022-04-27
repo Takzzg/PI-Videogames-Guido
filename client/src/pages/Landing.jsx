@@ -20,10 +20,19 @@ const Styled = styled.div`
 
         display: flex;
         flex-direction: column;
+        gap: 2rem;
         align-items: center;
         justify-content: flex-end;
+        padding: 5rem;
 
-        padding-bottom: 2rem;
+        .title {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
 
         a {
             color: white;
@@ -32,6 +41,7 @@ const Styled = styled.div`
 
             border: 3px solid white;
             border-radius: 1rem;
+            text-align: center;
 
             transition: all 0.25s ease-in-out;
 
@@ -67,7 +77,10 @@ export const Landing = () => {
     return (
         <Styled>
             <div className="main">
-                <div>PI VideoGames</div>
+                <div className="title">
+                    <span>Proyecto Individual</span>
+                    <span className="videogames"> Videogames</span>
+                </div>
                 <Link to={"/home"}>Home</Link>
             </div>
 
