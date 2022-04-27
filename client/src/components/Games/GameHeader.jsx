@@ -107,6 +107,19 @@ const RatingInput = ({ rating, handleChange }) => (
     </Input>
 )
 
+const DateInput = ({ released, handleChange }) => (
+    <>
+        <br />
+        <input
+            type="date"
+            name="released"
+            id="released"
+            value={released}
+            onChange={(e) => handleChange(e)}
+        />
+    </>
+)
+
 export const GameHeader = ({ name, rating, released, image, handleChange }) => {
     return (
         <Styled>
@@ -132,8 +145,18 @@ export const GameHeader = ({ name, rating, released, image, handleChange }) => {
                         </div>
                     )}
 
-                    {!!released && (
-                        <div className="released">Released: {released}</div>
+                    {(!!released || handleChange) && (
+                        <div className="released">
+                            Released:{" "}
+                            {handleChange ? (
+                                <DateInput
+                                    released={released}
+                                    handleChange={handleChange}
+                                />
+                            ) : (
+                                released
+                            )}
+                        </div>
                     )}
                 </div>
             </span>

@@ -73,25 +73,22 @@ export const Create = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [form, setForm] = useState({
-        name: "",
-        rating: 2.5,
-        desc: "",
-        genres: [],
-        platforms: [],
-        released: new Date().toLocaleDateString()
-    })
-    const [errors, setErrors] = useState([])
-
-    const resetForm = () => {
-        setForm({
+    const defaultForm = () => {
+        return {
             name: "",
             rating: 2.5,
             desc: "",
             genres: [],
             platforms: [],
-            released: new Date().toLocaleDateString()
-        })
+            released: ""
+        }
+    }
+
+    const [form, setForm] = useState(defaultForm())
+    const [errors, setErrors] = useState([])
+
+    const resetForm = () => {
+        setForm(defaultForm())
     }
 
     const handleSetForm = (e) => {
@@ -100,9 +97,12 @@ export const Create = () => {
 
     const submitForm = () => {
         const game = { ...form }
+
+        game.rating = parseInt(game.rating)
         game.platforms = game.platforms.map((p) =>
             platforms.find((plat) => plat.id === p)
         )
+
         dispatch(postGame(game))
         navigate("/home")
     }
