@@ -8,7 +8,7 @@ const { hardcoded_1, hardcoded_2, hardcoded_3 } = require("../../utils.js")
 
 const agent = session(app)
 
-describe.only("Videogame routes", () => {
+describe("/videogames routes", () => {
     before(() =>
         conn.authenticate().catch((err) => {
             console.error("Unable to connect to the database:", err)
