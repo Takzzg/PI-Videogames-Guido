@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const { expect } = require("chai")
 const session = require("supertest-session")
 
 const app = require("../../src/app.js")
@@ -26,22 +25,17 @@ describe.only("Videogame routes", () => {
     )
 
     describe("GET /videogames", () => {
-        it("should get 200", (done) => {
-            agent
-                .get("/videogames")
-                .expect(200)
-                .end(() => done())
-        })
+        it("should return 200", () => agent.get("/videogames").expect(200))
 
         it("should return an array of games", (done) => {
             agent.get("/videogames").end((err, res) => {
-                if (err) return done(err)
+                if (err) done(err)
                 if (
                     !res.body ||
                     !Array.isArray(res.body) ||
                     res.body.length < 1
                 )
-                    return done(new Error("body was empty"))
+                    done(new Error("body was empty"))
                 done()
             })
         })
