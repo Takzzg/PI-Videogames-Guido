@@ -47,6 +47,7 @@ const Styled = styled.div`
     .footer {
         grid-area: footer;
         display: flex;
+        align-items: flex-start;
 
         .buttons {
             grid-area: buttons;
@@ -58,10 +59,8 @@ const Styled = styled.div`
         .errors {
             grid-area: errors;
             display: flex;
-            flex-direction: row;
             flex-wrap: wrap;
             gap: 0.25rem;
-            align-items: center;
         }
     }
 `
@@ -132,7 +131,7 @@ export const Create = () => {
             detected.push("Name must be at least 3 characters long")
 
         if (form.rating > 5) detected.push("Rating can't be over 5")
-        if (form.rating < 0) detected.push("Rating can't be below 0")
+        else if (form.rating < 0) detected.push("Rating can't be below 0")
 
         if (!form.desc) detected.push("Must have a description")
         else if (form.desc?.split(" ").length < 10)
@@ -142,6 +141,18 @@ export const Create = () => {
             detected.push("Must belong to at least one genre")
         if (!form.platforms?.length)
             detected.push("Must include at least one platform")
+
+        if (!form.released || form.released === "")
+            detected.push("Must have a release date")
+        else {
+            let fields = form.released.split("-")
+            if (
+                parseInt(fields[2]) > new Date().getDate() ||
+                parseInt(fields[1]) > new Date().getMonth() + 1 ||
+                parseInt(fields[0]) > new Date().getFullYear()
+            )
+                detected.push("Release cannot be after today")
+        }
 
         setErrors(detected)
     }, [form])
