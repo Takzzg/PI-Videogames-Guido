@@ -38,11 +38,9 @@ const Styled = styled.div`
         }
 
         .images {
-            display: grid;
-
-            img {
-                max-width: 20vw;
-            }
+            display: flex;
+            flex-direction: column;
+            max-width: 20vw;
         }
     }
 `
